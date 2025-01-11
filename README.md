@@ -1,4 +1,4 @@
-# StarShipIt Dart Client
+# StarShipIt Dart
 
 A Dart client library for interacting with the StarShipIt API, providing type-safe access to shipping and order management functionality.
 
@@ -17,13 +17,13 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  starshipit: ^1.0.0
+  starshipit_dart: ^1.0.0
 ```
 
 ## Usage
 
 ```dart
-import 'package:starshipit/starshipit.dart';
+import 'package:starshipit_dart/starshipit_dart.dart';
 
 void main() {
   // Initialize the client

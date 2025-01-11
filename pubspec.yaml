@@ -1,0 +1,19 @@
+name: starshipit
+description: A Dart library for interacting with the StarShipIT API
+version: 0.1.0
+homepage: https://github.com/yourusername/starshipit
+
+environment:
+  sdk: '>=3.6.0 <4.0.0'
+
+dependencies:
+  http: ^1.2.0
+  json_annotation: ^4.8.1
+  meta: ^1.11.0
+  get_it: ^7.6.7
+
+dev_dependencies:
+  build_runner: ^2.4.8
+  json_serializable: ^6.7.1
+  lints: ^3.0.0
+  test: ^1.24.0 

@@ -1,0 +1,4 @@
+dart pub get 
+mkdir -p tools
+chmod +x tools/build_runner.sh
+./tools/build_runner.sh 

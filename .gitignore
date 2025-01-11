@@ -1,0 +1,45 @@
+# Dart/Flutter specific
+.dart_tool/
+.packages
+build/
+pubspec.lock
+
+# Generated files
+*.g.dart
+*.freezed.dart
+*.mocks.dart
+*.gr.dart
+*.config.dart
+
+# IDE specific
+.idea/
+.vscode/
+*.iml
+*.iws
+.DS_Store
+
+# Coverage reports
+coverage/
+.test_coverage.dart
+lcov.info
+
+# Environment files
+.env*
+*.env.dart
+
+# Temporary files
+*.swp
+*.swo
+*~
+
+# Log files
+*.log
+
+# Documentation
+doc/api/
+
+# Build outputs
+*.aot
+*.dill
+*.js.deps
+*.js.map 

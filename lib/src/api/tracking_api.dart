@@ -1,52 +1,64 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../models.dart';
+import '../models/models.dart';
 import '../exceptions.dart';
 
-/// API for tracking shipments
+/// API endpoints for tracking-related operations
 class TrackingApi {
+  /// Creates a new [TrackingApi] instance
+  TrackingApi({
+    required String baseUrl,
+    required Map<String, String> headers,
+    required http.Client client,
+  })  : _baseUrl = baseUrl,
+        _headers = headers,
+        _client = client;
+
   final String _baseUrl;
   final Map<String, String> _headers;
   final http.Client _client;
 
-  /// Creates a new [TrackingApi] instance
-  TrackingApi(this._baseUrl, this._headers, this._client);
-
-  /// Get tracking details using a tracking number or order number
+  /// Creates tracking-only orders for external shipments.
   ///
-  /// Either [trackingNumber] or [orderNumber] must be provided.
-  /// Returns tracking details for the shipment.
+  /// This endpoint allows you to add orders that were created and shipped outside of StarShipIt
+  /// into the tracking system. This is useful for maintaining a centralized tracking hub for all
+  /// orders, regardless of where they were created.
+  ///
+  /// Example:
+  /// ```dart
+  /// final request = CreateTrackingOnlyOrdersRequest(
+  ///   orders: [
+  ///     TrackingOnlyOrder(
+  ///       name: 'John Smith',
+  ///       orderNumber: 'ORD10001',
+  ///       carrier: Carrier.ausPost,
+  ///       trackingNumber: 'XYZ-92312-VSDV-24814',
+  ///       country: 'Australia',
+  ///       postcode: '2000',
+  ///     ),
+  ///   ],
+  /// );
+  /// final response = await trackingApi.createTrackingOnlyOrders(request);
+  /// ```
   ///
   /// Throws a [StarShipItException] if the request fails.
-  Future<TrackingResponse> getTracking({
-    String? trackingNumber,
-    String? orderNumber,
-  }) async {
-    if (trackingNumber == null && orderNumber == null) {
-      throw ArgumentError(
-          'Either trackingNumber or orderNumber must be provided');
-    }
-
-    final queryParams = <String, String>{};
-    if (trackingNumber != null) {
-      queryParams['tracking_number'] = trackingNumber;
-    }
-    if (orderNumber != null) {
-      queryParams['order_number'] = orderNumber;
-    }
-
-    final uri =
-        Uri.parse('$_baseUrl/api/track').replace(queryParameters: queryParams);
-
-    final response = await _client.get(uri, headers: _headers);
+  Future<CreateTrackingOnlyOrdersResponse> createTrackingOnlyOrders(
+    CreateTrackingOnlyOrdersRequest request,
+  ) async {
+    final uri = Uri.parse('$_baseUrl/api/orders/shipped');
+    final response = await _client.post(
+      uri,
+      headers: _headers,
+      body: jsonEncode(request.toJson()),
+    );
 
     if (response.statusCode != 200) {
       throw StarShipItException(
-        'Failed to get tracking details: ${response.statusCode} ${response.reasonPhrase}',
+        'Failed to create tracking-only orders: ${response.statusCode} ${response.reasonPhrase}',
       );
     }
 
     final json = jsonDecode(response.body) as Map<String, dynamic>;
-    return TrackingResponse.fromJson(json);
+    return CreateTrackingOnlyOrdersResponse.fromJson(json);
   }
 }

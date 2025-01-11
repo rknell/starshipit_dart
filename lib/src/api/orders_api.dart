@@ -3,18 +3,6 @@ import 'dart:convert';
 
 import '../exceptions.dart';
 import '../models/models.dart';
-import '../models/list_unshipped_orders_request.dart';
-import '../models/list_unshipped_orders_response.dart';
-import '../models/list_shipments_request.dart';
-import '../models/list_shipments_response.dart';
-import '../models/list_shipped_orders_request.dart';
-import '../models/list_shipped_orders_response.dart';
-import '../models/list_delivered_orders_request.dart';
-import '../models/list_delivered_orders_response.dart';
-import '../models/list_orders_summary_request.dart';
-import '../models/list_orders_summary_response.dart';
-import '../models/search_orders_request.dart';
-import '../models/search_orders_response.dart';
 
 /// Handles all order-related API requests
 class OrdersApi {
@@ -22,14 +10,13 @@ class OrdersApi {
   OrdersApi({
     required String baseUrl,
     required Map<String, String> headers,
-    required http.Client client,
+    required this.client,
   })  : _baseUrl = baseUrl,
-        _headers = headers,
-        _client = client;
+        _headers = headers;
 
   final String _baseUrl;
   final Map<String, String> _headers;
-  final http.Client _client;
+  final http.Client client;
 
   /// Lists all unshipped orders
   ///
@@ -44,7 +31,7 @@ class OrdersApi {
       queryParameters: request?.toQueryParameters(),
     );
 
-    final response = await _client.get(uri, headers: _headers);
+    final response = await client.get(uri, headers: _headers);
 
     if (response.statusCode != 200) {
       throw StarShipItException(
@@ -68,7 +55,7 @@ class OrdersApi {
       queryParameters: request.toQueryParameters(),
     );
 
-    final response = await _client.get(uri, headers: _headers);
+    final response = await client.get(uri, headers: _headers);
 
     if (response.statusCode != 200) {
       throw StarShipItException(
@@ -93,7 +80,7 @@ class OrdersApi {
       queryParameters: request?.toQueryParameters(),
     );
 
-    final response = await _client.get(uri, headers: _headers);
+    final response = await client.get(uri, headers: _headers);
 
     if (response.statusCode != 200) {
       throw StarShipItException(
@@ -117,7 +104,7 @@ class OrdersApi {
       queryParameters: request.toQueryParameters(),
     );
 
-    final response = await _client.get(uri, headers: _headers);
+    final response = await client.get(uri, headers: _headers);
 
     if (response.statusCode != 200) {
       throw StarShipItException(
@@ -140,7 +127,7 @@ class OrdersApi {
       queryParameters: request?.toQueryParameters(),
     );
 
-    final response = await _client.get(uri, headers: _headers);
+    final response = await client.get(uri, headers: _headers);
     if (response.statusCode != 200) {
       throw StarShipItException(
           'Failed to list order summaries: ${response.body}');
@@ -158,7 +145,7 @@ class OrdersApi {
     final uri = Uri.parse('$_baseUrl/api/orders/search')
         .replace(queryParameters: request?.toQueryParameters());
 
-    final response = await _client.get(uri, headers: _headers);
+    final response = await client.get(uri, headers: _headers);
 
     if (response.statusCode != 200) {
       throw StarShipItException('Failed to search orders: ${response.body}');
@@ -177,7 +164,7 @@ class OrdersApi {
   Future<MergeOrdersResponse> merge(MergeOrdersRequest request) async {
     final uri = Uri.parse('$_baseUrl/api/orders/merge');
 
-    final response = await _client.post(
+    final response = await client.post(
       uri,
       headers: _headers,
       body: jsonEncode(request.toJson()),
@@ -206,7 +193,7 @@ class OrdersApi {
       queryParameters: request?.toQueryParameters(),
     );
 
-    final response = await _client.get(uri, headers: _headers);
+    final response = await client.get(uri, headers: _headers);
 
     if (response.statusCode != 200) {
       throw StarShipItException(
@@ -227,7 +214,7 @@ class OrdersApi {
   Future<AssignOrdersResponse> assign(AssignOrdersRequest request) async {
     final uri = Uri.parse('$_baseUrl/api/orders/assign');
 
-    final response = await _client.post(
+    final response = await client.post(
       uri,
       headers: _headers,
       body: jsonEncode(request.toJson()),

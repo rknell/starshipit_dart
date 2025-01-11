@@ -122,6 +122,11 @@ A Dart client library for interacting with the StarShipIt API, providing type-sa
 - ✓ ListShippedOrdersResponse
 - ✓ ListDeliveredOrdersResponse
 
+### Tracking Only Orders
+- ✓ TrackingOnlyOrder - Model for external shipments with tracking
+- ✓ CreateTrackingOnlyOrdersRequest - Request model for creating tracking-only orders
+- ✓ CreateTrackingOnlyOrdersResponse - Response model for tracking-only order creation
+
 ## API Endpoints Implementation Status
 
 ### Orders
@@ -265,6 +270,31 @@ A Dart client library for interacting with the StarShipIt API, providing type-sa
        - Add `@JsonSerializable()` annotations
        - Create part files
        - Run build_runner to generate serialization code
+
+### Tracking
+- ✓ Create Tracking Only Orders
+  - Implementation Steps:
+    1. Create request wrapper (`CreateTrackingOnlyOrdersRequest`) using:
+       - Required field: `orders` (List<TrackingOnlyOrder>)
+       - Each order contains:
+         - `name` (optional) - Customer name
+         - `order_number` (optional) - Reference number
+         - `carrier` - Carrier enum value
+         - `tracking_number` - Shipment tracking number
+         - `country` - Destination country
+         - `postcode` - Destination postcode
+    2. Create response wrapper (`CreateTrackingOnlyOrdersResponse`) using:
+       - Required fields:
+         - `orders` (Map<String, String>) - Map of order IDs to tracking numbers
+         - `success` (bool) - Whether the request was successful
+    3. Enable JSON serialization:
+       - Add `@JsonSerializable()` annotations
+       - Create part files
+       - Run build_runner to generate serialization code
+       - Implement API endpoint in `TrackingApi` class:
+         - POST request to `/api/orders/shipped`
+         - Handle error responses
+         - Parse response into `CreateTrackingOnlyOrdersResponse`
 
 ### Remaining Endpoints to Implement
 - Get Order by ID

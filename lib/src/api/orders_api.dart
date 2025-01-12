@@ -86,8 +86,27 @@ class OrdersApi {
 
   /// Lists all shipped orders
   ///
-  /// By default, returns orders updated in the last 24 hours.
-  /// Use [request] to customize the query parameters.
+  /// Get a list of all shipped orders (default: orders updated in the last 24 hours)
+  ///
+  /// Endpoint: GET https://api.starshipit.com/api/orders/shipped
+  ///
+  /// Parameters:
+  /// - [since_last_updated] (optional): Show orders recently updated after date in UTC (date-time in RFC3339 format)
+  /// - [ids_only] (optional): Show all unshipped order_ids
+  /// - [limit] (optional): Amount of results (default: 50) (maximum: 250)
+  /// - [page] (optional): Page to show (default: 1)
+  ///
+  /// Response:
+  /// - [orders]: List of shipped orders details (Full Order Model)
+  /// - [order_ids]: List of shipped order_id
+  /// - [total_pages]: Total number of pages available
+  /// - [success]: Determines whether the request was successfully submitted
+  /// - [errors]: List of detailed errors (Error Model)
+  ///
+  /// Required Headers:
+  /// - Content-Type: application/json
+  /// - StarShipIT-Api-Key: Api key in your Starshipit account under Settings > API > API Key
+  /// - Ocp-Apim-Subscription-Key: Subscription key in your Starshipit account under Settings > API > Subscription key
   ///
   /// Throws a [StarShipItException] if the request fails.
   Future<ListShippedOrdersResponse> listShipped({

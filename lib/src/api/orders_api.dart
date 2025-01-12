@@ -279,9 +279,35 @@ class OrdersApi {
     return CreateOrdersResponse.fromJson(json);
   }
 
-  /// Gets an order by its ID or order number
+  /// Get order details by either order_id or order_number. If neither order_id or order_number is provided,
+  /// this endpoint can be used to return multiple orders that match the criteria.
   ///
-  /// [identifier] can be either an order ID or order number
+  /// Endpoint: GET https://api.starshipit.com/api/orders
+  ///
+  /// Parameters:
+  /// - [order_id] (optional): The unique numeric identifier for the order (example: 12345) (accepted values: Any integer)
+  /// - [order_number] (optional): The identifier of the order pulled from source e-Commerce platform (example: #1234) (accepted values: Any)
+  /// - [status] (optional): The order status to filter orders for (default: unshipped) (accepted values: Unshipped, Shipped)
+  /// - [filter] (optional): See the Filters section on how to use this (example: Order:::#1234)
+  /// - [include] (optional): Allows additional objects and values to be included in the response. To specify multiple inclusions,
+  ///   just use multiple Include parameters (accepted values: Account_Summary, Shipment_Attributes, Sender_Details, Destination,
+  ///   Items, Packages, Metadatas, Events, Shipping_Price)
+  /// - [sort_column] (optional): Order field to sort by (accepted values: Address, Carrier, Name, Country, Date (order_date),
+  ///   Items, Manifest (manifest_number), Order (order_number), Product, Quantity, ShippedDate, ShippingDescription,
+  ///   ShippingMethod, SKU, StockOnHand, Platform, State, Status (order status), Weight, Writeback (writeback_status))
+  /// - [sort_direction] (optional): Direction of the sort applied with sort_column (Default: Descending) (accepted values: Ascending, Descending)
+  /// - [page_number] (optional): Page number to return (default: 1) (accepted values: Any integer)
+  /// - [page_size] (optional): Number of results to return (default: 500, maximum: 500) (accepted values: 1, 2, 3, ... 500)
+  ///
+  /// Response:
+  /// - [order]: List of order details (Full Order Model)
+  /// - [success]: Determines whether the request was successfully submitted
+  /// - [errors]: List of detailed errors (Error Model)
+  ///
+  /// Required Headers:
+  /// - Content-Type: application/json
+  /// - StarShipIT-Api-Key: Api key in your Starshipit account under Settings > API > API Key
+  /// - Ocp-Apim-Subscription-Key: Subscription key in your Starshipit account under Settings > API > Subscription key
   ///
   /// Throws a [StarShipItException] if the request fails.
   Future<GetOrdersResponse> getOrder(String identifier) async {
@@ -291,7 +317,35 @@ class OrdersApi {
 
   /// Gets multiple orders by their IDs or order numbers
   ///
-  /// [request] contains a list of order IDs or order numbers to fetch
+  /// Get order details by either order_id or order_number. If neither order_id or order_number is provided,
+  /// this endpoint can be used to return multiple orders that match the criteria.
+  ///
+  /// Endpoint: GET https://api.starshipit.com/api/orders
+  ///
+  /// Parameters:
+  /// - [order_id] (optional): The unique numeric identifier for the order (example: 12345) (accepted values: Any integer)
+  /// - [order_number] (optional): The identifier of the order pulled from source e-Commerce platform (example: #1234) (accepted values: Any)
+  /// - [status] (optional): The order status to filter orders for (default: unshipped) (accepted values: Unshipped, Shipped)
+  /// - [filter] (optional): See the Filters section on how to use this (example: Order:::#1234)
+  /// - [include] (optional): Allows additional objects and values to be included in the response. To specify multiple inclusions,
+  ///   just use multiple Include parameters (accepted values: Account_Summary, Shipment_Attributes, Sender_Details, Destination,
+  ///   Items, Packages, Metadatas, Events, Shipping_Price)
+  /// - [sort_column] (optional): Order field to sort by (accepted values: Address, Carrier, Name, Country, Date (order_date),
+  ///   Items, Manifest (manifest_number), Order (order_number), Product, Quantity, ShippedDate, ShippingDescription,
+  ///   ShippingMethod, SKU, StockOnHand, Platform, State, Status (order status), Weight, Writeback (writeback_status))
+  /// - [sort_direction] (optional): Direction of the sort applied with sort_column (Default: Descending) (accepted values: Ascending, Descending)
+  /// - [page_number] (optional): Page number to return (default: 1) (accepted values: Any integer)
+  /// - [page_size] (optional): Number of results to return (default: 500, maximum: 500) (accepted values: 1, 2, 3, ... 500)
+  ///
+  /// Response:
+  /// - [order]: List of order details (Full Order Model)
+  /// - [success]: Determines whether the request was successfully submitted
+  /// - [errors]: List of detailed errors (Error Model)
+  ///
+  /// Required Headers:
+  /// - Content-Type: application/json
+  /// - StarShipIT-Api-Key: Api key in your Starshipit account under Settings > API > API Key
+  /// - Ocp-Apim-Subscription-Key: Subscription key in your Starshipit account under Settings > API > Subscription key
   ///
   /// Throws a [StarShipItException] if the request fails.
   Future<GetOrdersResponse> getOrders(GetOrdersRequest request) async {

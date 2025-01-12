@@ -472,7 +472,26 @@ class OrdersApi {
 
   /// Updates multiple orders with the same values
   ///
-  /// [request] contains the order IDs/numbers to update and the values to apply to all orders
+  /// You can use the batch update order api to update the carrier information on a list of unshipped orders.
+  /// You can update:
+  /// - Product Code
+  /// - Carrier Id
+  ///
+  /// Endpoint: PUT https://api.starshipit.com/api/orders/batchupdate
+  ///
+  /// Request:
+  /// - [order_ids]: List of order_id to be updated
+  /// - [product_code]: Carrier service code for delivery
+  /// - [carrier_id]: The id of the carrier that is used in the order
+  ///
+  /// Response:
+  /// - [success]: Determines whether the request was successfully submitted
+  /// - [errors]: List of detailed errors (Error Model)
+  ///
+  /// Required Headers:
+  /// - Content-Type: application/json
+  /// - StarShipIT-Api-Key: Api key in your Starshipit account under Settings > API > API Key
+  /// - Ocp-Apim-Subscription-Key: Subscription key in your Starshipit account under Settings > API > Subscription key
   ///
   /// Throws a [StarShipItException] if the request fails.
   Future<BatchUpdateOrdersResponse> updateBatch(

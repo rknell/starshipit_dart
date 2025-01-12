@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'models.dart';
 
 part 'webhook_data.g.dart';
 
@@ -51,38 +52,4 @@ class WebhookData {
 
   /// Converts this instance to JSON
   Map<String, dynamic> toJson() => _$WebhookDataToJson(this);
-}
-
-/// Possible tracking status values that can be received in webhook notifications
-@JsonEnum(fieldRename: FieldRename.pascal)
-enum TrackingStatus {
-  /// Label has been printed but shipment not yet picked up
-  printed,
-
-  /// Shipment has been dispatched to carrier
-  dispatched,
-
-  /// Shipment is in transit with carrier
-  inTransit,
-
-  /// Shipment is out for delivery
-  outForDelivery,
-
-  /// Shipment has been delivered
-  delivered,
-
-  /// Item is ready for pickup in store
-  pickupInStore,
-
-  /// Delivery was attempted but unsuccessful
-  attemptedDelivery,
-
-  /// There was an exception/issue with delivery
-  exception,
-
-  /// Item is awaiting collection
-  awaitingCollection,
-
-  /// Shipment has been cancelled
-  cancelled,
 }

@@ -1,57 +1,62 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'carrier.dart';
 
 part 'rate.g.dart';
 
-/// Model for a shipping rate
-@JsonSerializable(explicitToJson: true)
+/// Model representing a shipping rate from a carrier.
+///
+/// Model fields and constraints:
+/// - serviceName: Required String. Human-readable carrier service description
+/// - serviceCode: Required String. Unique carrier product/service identifier
+/// - totalPrice: Required double. Price in requested currency
+///
+/// Example:
+/// ```json
+/// {
+///   "service_name": "PARCEL POST + SIGNATURE",
+///   "service_code": "7B05",
+///   "total_price": 12.05
+/// }
+/// ```
+@JsonSerializable()
 class Rate {
-
   /// Creates a new [Rate] instance
+  ///
+  /// [serviceName] must be a non-empty string describing the service
+  /// [serviceCode] must be a valid carrier service code
+  /// [totalPrice] must be a positive number in the requested currency
   const Rate({
-    required this.carrier,
-    required this.serviceCode,
     required this.serviceName,
-    required this.cost,
-    required this.currency,
-    this.deliveryTime,
+    required this.serviceCode,
+    required this.totalPrice,
   });
 
-  /// Creates a [Rate] from JSON map
+  /// Factory constructor for creating a [Rate] instance from JSON data
   factory Rate.fromJson(Map<String, dynamic> json) => _$RateFromJson(json);
-  /// The carrier offering this rate
-  @JsonKey(
-    fromJson: _carrierFromJson,
-    toJson: _carrierToJson,
-  )
-  final Carrier carrier;
 
-  /// The carrier's service code
-  @JsonKey(name: 'service_code')
-  final String serviceCode;
-
-  /// The carrier's service name
-  @JsonKey(name: 'service_name')
+  /// Description of the carrier service.
+  ///
+  /// Constraints:
+  /// - Required field
+  /// - Must be a non-empty string
+  /// - Human-readable description (e.g. "PARCEL POST + SIGNATURE")
   final String serviceName;
 
-  /// The total cost of shipping
-  final double cost;
+  /// Carrier service/product code.
+  ///
+  /// Constraints:
+  /// - Required field
+  /// - Must be a valid carrier service code
+  /// - Format varies by carrier (e.g. "7B05")
+  final String serviceCode;
 
-  /// The currency code for the cost (e.g., AUD, NZD)
-  final String currency;
+  /// Price of service in the requested currency.
+  ///
+  /// Constraints:
+  /// - Required field
+  /// - Must be a positive number
+  /// - Currency matches the request currency or account default
+  final double totalPrice;
 
-  /// Estimated delivery time in days
-  @JsonKey(name: 'delivery_time')
-  final int? deliveryTime;
-
-  /// Converts this [Rate] to a JSON map
+  /// Converts this instance to JSON
   Map<String, dynamic> toJson() => _$RateToJson(this);
-
-  static Carrier _carrierFromJson(String value) => Carrier.values.firstWhere(
-        (carrier) => carrier.toString().split('.').last == value,
-        orElse: () => throw ArgumentError('Invalid carrier name: $value'),
-      );
-
-  static String _carrierToJson(Carrier carrier) =>
-      carrier.toString().split('.').last;
 }

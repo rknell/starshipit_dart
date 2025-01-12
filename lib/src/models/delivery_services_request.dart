@@ -1,27 +1,27 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'models.dart';
 
 part 'delivery_services_request.g.dart';
 
-/// Request wrapper for the Delivery Services endpoint
-/// ```
-/// Parameter               Type        Description
-/// order_id               int         Refresh the rate for a specified order ID
-/// refresh_rate           boolean     Trigger the rate to be refreshed
-/// sender                 object      The Sender address that should be used for the rate request
-/// destination           object      The destination address that should be used for the request
-/// packages              object[]    Packages of the order (Delivery Services - Package Model)
-/// declared_value        float       The value of the shipment
-/// include_pricing       boolean     Whether to return pricing in the response. Defaults to false.
-/// return_order         boolean     Whether the shipment is a return order. Defaults to false
-/// signature_required    boolean     Whether signature is required for delivery
-/// authority_to_leave   boolean     Whether package can be left without signature
-/// dangerous_goods      boolean     Whether the shipment contains dangerous goods
-/// insurance_value      float       The amount of insurance included on the shipment
-/// ```
-@JsonSerializable(explicitToJson: true)
+/// Request model for getting available carrier delivery services.
+///
+/// Model fields and constraints:
+/// - orderId: Optional int. Refresh rate for a specific order
+/// - refreshRate: Optional bool. Whether to trigger rate refresh
+/// - sender: Optional RateAddress. Sender address for rate request
+/// - destination: Optional RateAddress. Destination address for rate request
+/// - packages: Required List<RatePackage>. Package details
+/// - declaredValue: Optional double. Value of the shipment
+/// - includePricing: Optional bool. Whether to return pricing (default: false)
+/// - returnOrder: Optional bool. Whether this is a return shipment (default: false)
+/// - signatureRequired: Optional bool. Whether signature is required
+/// - authorityToLeave: Optional bool. Whether package can be left without signature
+/// - dangerousGoods: Optional bool. Whether package contains dangerous goods
+/// - insuranceValue: Optional double. Amount of insurance coverage
+@JsonSerializable()
 class DeliveryServicesRequest {
-  /// Creates a new delivery services request instance
-  DeliveryServicesRequest({
+  /// Creates a new [DeliveryServicesRequest] instance
+  const DeliveryServicesRequest({
     this.orderId,
     this.refreshRate,
     this.sender,
@@ -36,11 +36,11 @@ class DeliveryServicesRequest {
     this.insuranceValue = 0.0,
   });
 
-  /// Creates a DeliveryServicesRequest from JSON
+  /// Factory constructor for creating a [DeliveryServicesRequest] instance from JSON data
   factory DeliveryServicesRequest.fromJson(Map<String, dynamic> json) =>
       _$DeliveryServicesRequestFromJson(json);
 
-  /// Optional order ID to refresh rate for
+  /// Optional order ID to refresh rates for
   @JsonKey(name: 'order_id')
   final int? orderId;
 
@@ -48,20 +48,20 @@ class DeliveryServicesRequest {
   @JsonKey(name: 'refresh_rate')
   final bool? refreshRate;
 
-  /// Optional sender address details
-  final DeliveryServicesSender? sender;
+  /// Sender address details
+  final RateAddress? sender;
 
-  /// Optional destination address details
-  final DeliveryServicesDestination? destination;
+  /// Destination address details
+  final RateAddress? destination;
 
-  /// List of packages for the order
-  final List<DeliveryServicesPackage> packages;
+  /// List of packages to ship
+  final List<RatePackage> packages;
 
-  /// Optional declared value of the shipment
+  /// Declared value of the shipment
   @JsonKey(name: 'declared_value')
   final double? declaredValue;
 
-  /// Whether to include pricing in the response
+  /// Whether to include pricing in response
   @JsonKey(name: 'include_pricing')
   final bool includePricing;
 
@@ -69,7 +69,7 @@ class DeliveryServicesRequest {
   @JsonKey(name: 'return_order')
   final bool returnOrder;
 
-  /// Whether signature is required for delivery
+  /// Whether signature is required on delivery
   @JsonKey(name: 'signature_required')
   final bool? signatureRequired;
 
@@ -77,152 +77,14 @@ class DeliveryServicesRequest {
   @JsonKey(name: 'authority_to_leave')
   final bool authorityToLeave;
 
-  /// Whether the shipment contains dangerous goods
+  /// Whether package contains dangerous goods
   @JsonKey(name: 'dangerous_goods')
   final bool dangerousGoods;
 
-  /// Amount of insurance included on the shipment
+  /// Amount of insurance coverage
   @JsonKey(name: 'insurance_value')
   final double insuranceValue;
 
-  /// Converts the DeliveryServicesRequest to JSON
+  /// Converts this instance to JSON
   Map<String, dynamic> toJson() => _$DeliveryServicesRequestToJson(this);
-}
-
-/// Model for sender address details in a delivery services request
-/// ```
-/// Attribute      Type     Description
-/// street         string   Street number and name of the sender address
-/// suburb         string   Suburb of the sender address
-/// city           string   City of the sender address
-/// state          string   State of the sender address
-/// post_code      string   Postal or zip code of the sender address
-/// country_code   string   The country code of the sender address
-/// ```
-@JsonSerializable()
-class DeliveryServicesSender {
-  /// Creates a new delivery services sender instance
-  DeliveryServicesSender({
-    required this.street,
-    required this.suburb,
-    required this.city,
-    required this.state,
-    required this.postCode,
-    required this.countryCode,
-  });
-
-  /// Creates a DeliveryServicesSender from JSON
-  factory DeliveryServicesSender.fromJson(Map<String, dynamic> json) =>
-      _$DeliveryServicesSenderFromJson(json);
-
-  /// Street number and name of the sender address
-  final String street;
-
-  /// Suburb of the sender address
-  final String suburb;
-
-  /// City of the sender address
-  final String city;
-
-  /// State of the sender address
-  final String state;
-
-  /// Postal or zip code of the sender address
-  @JsonKey(name: 'post_code')
-  final String postCode;
-
-  /// The country code of the sender address
-  @JsonKey(name: 'country_code')
-  final String countryCode;
-
-  /// Converts the DeliveryServicesSender to JSON
-  Map<String, dynamic> toJson() => _$DeliveryServicesSenderToJson(this);
-}
-
-/// Model for destination address details in a delivery services request
-/// ```
-/// Attribute      Type     Description
-/// street         string   Street number and name of the delivery address
-/// suburb         string   Suburb of the delivery address
-/// city           string   City of the delivery address
-/// state          string   State of the delivery address
-/// post_code      string   Postal or zip code of the delivery address
-/// country_code   string   The country code of the delivery address
-/// ```
-@JsonSerializable()
-class DeliveryServicesDestination {
-  /// Creates a new delivery services destination instance
-  DeliveryServicesDestination({
-    required this.street,
-    required this.suburb,
-    required this.city,
-    required this.state,
-    required this.postCode,
-    required this.countryCode,
-  });
-
-  /// Creates a DeliveryServicesDestination from JSON
-  factory DeliveryServicesDestination.fromJson(Map<String, dynamic> json) =>
-      _$DeliveryServicesDestinationFromJson(json);
-
-  /// Street number and name of the delivery address
-  final String street;
-
-  /// Suburb of the delivery address
-  final String suburb;
-
-  /// City of the delivery address
-  final String city;
-
-  /// State of the delivery address
-  final String state;
-
-  /// Postal or zip code of the delivery address
-  @JsonKey(name: 'post_code')
-  final String postCode;
-
-  /// The country code of the delivery address
-  @JsonKey(name: 'country_code')
-  final String countryCode;
-
-  /// Converts the DeliveryServicesDestination to JSON
-  Map<String, dynamic> toJson() => _$DeliveryServicesDestinationToJson(this);
-}
-
-/// Model for package details in a delivery services request
-/// ```
-/// Attribute   Type     Description
-/// weight      double   Physical weight of the parcel in kilograms (kg)
-/// height      double   Height of the parcel in meters (m)
-/// width       double   Width of the parcel in meters (m)
-/// length      double   Length of the parcel in meters (m)
-/// ```
-@JsonSerializable()
-class DeliveryServicesPackage {
-  /// Creates a new delivery services package instance
-  DeliveryServicesPackage({
-    required this.weight,
-    this.height,
-    this.width,
-    this.length,
-  });
-
-  /// Creates a DeliveryServicesPackage from JSON
-  factory DeliveryServicesPackage.fromJson(Map<String, dynamic> json) =>
-      _$DeliveryServicesPackageFromJson(json);
-
-  /// Physical weight of the parcel in kilograms (kg)
-  final double weight;
-
-  /// Height of the parcel in meters (m)
-  final double? height;
-
-  /// Width of the parcel in meters (m)
-  final double? width;
-
-  /// Length of the parcel in meters (m)
-  final double? length;
-
-  /// Converts the DeliveryServicesPackage to JSON
-  Map<String, dynamic> toJson() => _$DeliveryServicesPackageToJson(this);
 }

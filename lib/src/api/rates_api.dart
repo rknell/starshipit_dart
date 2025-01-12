@@ -61,4 +61,23 @@ class RatesApi {
     );
     return GetRatesResponse.fromJson(json);
   }
+
+  /// Get a list of available carrier delivery services.
+  ///
+  /// Endpoint: POST https://api.starshipit.com/api/deliveryservices
+  ///
+  /// Required Headers:
+  /// - Content-Type: application/json
+  /// - StarShipIT-Api-Key: Api key in your Starshipit account under Settings > API > API Key
+  /// - Ocp-Apim-Subscription-Key: Subscription key in your Starshipit account under Settings > API > Subscription key
+  ///
+  /// Throws a [StarShipItException] if the request fails.
+  Future<DeliveryServicesResponse> getDeliveryServices(
+      DeliveryServicesRequest request) async {
+    final json = await httpClient.post(
+      '/api/deliveryservices',
+      body: request.toJson(),
+    );
+    return DeliveryServicesResponse.fromJson(json);
+  }
 }

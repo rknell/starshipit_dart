@@ -17,7 +17,7 @@ class StarShipItClient {
     required this.subscriptionKey,
     this.baseUrl = 'https://api.starshipit.com',
   }) : httpClient = StarshipitHttpClient(
-            apiKey: apiKey, subscriptionKey: subscriptionKey);
+            apiKey: apiKey, subscriptionKey: subscriptionKey, baseUrl: baseUrl);
 
   final String baseUrl;
   final StarshipitHttpClient httpClient;

@@ -2,21 +2,16 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/models.dart';
 import '../exceptions.dart';
+import 'starshipit_http_client.dart';
 
 /// API endpoints for tracking-related operations
 class TrackingApi {
   /// Creates a new [TrackingApi] instance
   TrackingApi({
-    required String baseUrl,
-    required Map<String, String> headers,
-    required http.Client client,
-  })  : _baseUrl = baseUrl,
-        _headers = headers,
-        _client = client;
+    required this.httpClient,
+  });
 
-  final String _baseUrl;
-  final Map<String, String> _headers;
-  final http.Client _client;
+  final StarshipitHttpClient httpClient;
 
   /// Creates tracking-only orders for external shipments.
   ///
@@ -45,20 +40,10 @@ class TrackingApi {
   Future<CreateTrackingOnlyOrdersResponse> createTrackingOnlyOrders(
     CreateTrackingOnlyOrdersRequest request,
   ) async {
-    final uri = Uri.parse('$_baseUrl/api/orders/shipped');
-    final response = await _client.post(
-      uri,
-      headers: _headers,
-      body: jsonEncode(request.toJson()),
+    final json = await httpClient.post(
+      '/api/orders/shipped',
+      body: request.toJson(),
     );
-
-    if (response.statusCode != 200) {
-      throw StarShipItException(
-        'Failed to create tracking-only orders: ${response.statusCode} ${response.reasonPhrase}',
-      );
-    }
-
-    final json = jsonDecode(response.body) as Map<String, dynamic>;
     return CreateTrackingOnlyOrdersResponse.fromJson(json);
   }
 }

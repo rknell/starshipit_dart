@@ -3,21 +3,16 @@ import 'dart:convert';
 
 import '../exceptions.dart';
 import '../models/models.dart';
+import 'starshipit_http_client.dart';
 
 /// Handles all shipping-related API requests
 class ShippingApi {
   /// Creates a new shipping API instance
   ShippingApi({
-    required String baseUrl,
-    required Map<String, String> headers,
-    required http.Client client,
-  })  : _baseUrl = baseUrl,
-        _headers = headers,
-        _client = client;
+    required this.httpClient,
+  });
 
-  final String _baseUrl;
-  final Map<String, String> _headers;
-  final http.Client _client;
+  final StarshipitHttpClient httpClient;
 
   /// Prints a shipping label for a given order
   ///
@@ -26,21 +21,10 @@ class ShippingApi {
   ///
   /// Throws a [StarShipItException] if the request fails.
   Future<PrintLabelResponse> printLabel(PrintLabelRequest request) async {
-    final uri = Uri.parse('$_baseUrl/api/orders/shipment');
-
-    final response = await _client.post(
-      uri,
-      headers: _headers,
-      body: jsonEncode(request.toJson()),
+    final json = await httpClient.post(
+      '/api/orders/shipment',
+      body: request.toJson(),
     );
-
-    if (response.statusCode != 200) {
-      throw StarShipItException(
-        'Failed to print label: ${response.statusCode} ${response.reasonPhrase}',
-      );
-    }
-
-    final json = jsonDecode(response.body) as Map<String, dynamic>;
     return PrintLabelResponse.fromJson(json);
   }
 
@@ -51,21 +35,10 @@ class ShippingApi {
   ///
   /// Throws a [StarShipItException] if the request fails.
   Future<PrintLabelsResponse> printLabels(PrintLabelsRequest request) async {
-    final uri = Uri.parse('$_baseUrl/api/orders/shipments');
-
-    final response = await _client.post(
-      uri,
-      headers: _headers,
-      body: jsonEncode(request.toJson()),
+    final json = await httpClient.post(
+      '/api/orders/shipments',
+      body: request.toJson(),
     );
-
-    if (response.statusCode != 200) {
-      throw StarShipItException(
-        'Failed to print labels: ${response.statusCode} ${response.reasonPhrase}',
-      );
-    }
-
-    final json = jsonDecode(response.body) as Map<String, dynamic>;
     return PrintLabelsResponse.fromJson(json);
   }
 
@@ -79,21 +52,10 @@ class ShippingApi {
   Future<PrintPackingSlipsResponse> printPackingSlips(
     PrintPackingSlipsRequest request,
   ) async {
-    final uri = Uri.parse('$_baseUrl/api/orders/packingslips');
-
-    final response = await _client.post(
-      uri,
-      headers: _headers,
-      body: jsonEncode(request.toJson()),
+    final json = await httpClient.post(
+      '/api/orders/packingslips',
+      body: request.toJson(),
     );
-
-    if (response.statusCode != 200) {
-      throw StarShipItException(
-        'Failed to print packing slips: ${response.statusCode} ${response.reasonPhrase}',
-      );
-    }
-
-    final json = jsonDecode(response.body) as Map<String, dynamic>;
     return PrintPackingSlipsResponse.fromJson(json);
   }
 
@@ -106,21 +68,10 @@ class ShippingApi {
   /// Throws a [StarShipItException] if the request fails.
   Future<ManifestOrdersResponse> manifestOrders(
       ManifestOrdersRequest request) async {
-    final uri = Uri.parse('$_baseUrl/api/orders/manifest');
-
-    final response = await _client.post(
-      uri,
-      headers: _headers,
-      body: jsonEncode(request.toJson()),
+    final json = await httpClient.post(
+      '/api/orders/manifest',
+      body: request.toJson(),
     );
-
-    if (response.statusCode != 200) {
-      throw StarShipItException(
-        'Failed to manifest orders: ${response.statusCode} ${response.reasonPhrase}',
-      );
-    }
-
-    final json = jsonDecode(response.body) as Map<String, dynamic>;
     return ManifestOrdersResponse.fromJson(json);
   }
 
@@ -132,21 +83,10 @@ class ShippingApi {
   /// Throws a [StarShipItException] if the request fails.
   Future<CloneShipmentResponse> cloneShipment(
       CloneShipmentRequest request) async {
-    final uri = Uri.parse('$_baseUrl/api/orders/shipment/clone');
-
-    final response = await _client.post(
-      uri,
-      headers: _headers,
-      body: jsonEncode(request.toJson()),
+    final json = await httpClient.post(
+      '/api/orders/shipment/clone',
+      body: request.toJson(),
     );
-
-    if (response.statusCode != 200) {
-      throw StarShipItException(
-        'Failed to clone shipment: ${response.statusCode} ${response.reasonPhrase}',
-      );
-    }
-
-    final json = jsonDecode(response.body) as Map<String, dynamic>;
     return CloneShipmentResponse.fromJson(json);
   }
 
@@ -160,21 +100,10 @@ class ShippingApi {
   Future<ReplaceShipmentResponse> replaceShipment(
     ReplaceShipmentRequest request,
   ) async {
-    final uri = Uri.parse('$_baseUrl/api/orders/shipment/replace');
-
-    final response = await _client.post(
-      uri,
-      headers: _headers,
-      body: jsonEncode(request.toJson()),
+    final json = await httpClient.post(
+      '/api/orders/shipment/replace',
+      body: request.toJson(),
     );
-
-    if (response.statusCode != 200) {
-      throw StarShipItException(
-        'Failed to replace shipment: ${response.statusCode} ${response.reasonPhrase}',
-      );
-    }
-
-    final json = jsonDecode(response.body) as Map<String, dynamic>;
     return ReplaceShipmentResponse.fromJson(json);
   }
 }

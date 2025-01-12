@@ -3,21 +3,16 @@ import 'dart:convert';
 
 import '../exceptions.dart';
 import '../models/models.dart';
+import 'starshipit_http_client.dart';
 
 /// Handles all manifest-related API requests
 class ManifestsApi {
   /// Creates a new manifests API instance
   ManifestsApi({
-    required String baseUrl,
-    required Map<String, String> headers,
-    required http.Client client,
-  })  : _baseUrl = baseUrl,
-        _headers = headers,
-        _client = client;
+    required this.httpClient,
+  });
 
-  final String _baseUrl;
-  final Map<String, String> _headers;
-  final http.Client _client;
+  final StarshipitHttpClient httpClient;
 
   /// Retrieves a list of manifests
   ///
@@ -26,20 +21,11 @@ class ManifestsApi {
   /// Returns a [GetManifestsResponse] containing the matching manifests
   Future<GetManifestsResponse> getManifests(
       [GetManifestsRequest? request]) async {
-    final uri = Uri.parse('$_baseUrl/api/manifests').replace(
+    final json = await httpClient.get(
+      '/api/manifests',
       queryParameters: request?.toQueryParameters(),
     );
-
-    final response = await _client.get(uri, headers: _headers);
-
-    final data = json.decode(response.body) as Map<String, dynamic>;
-    if (response.statusCode == 200) {
-      return GetManifestsResponse.fromJson(data);
-    }
-
-    throw StarShipItException(
-      'Failed to get manifests: ${response.statusCode} ${response.reasonPhrase}',
-    );
+    return GetManifestsResponse.fromJson(json);
   }
 
   /// Retrieves a list of manifest files by manifest ID
@@ -47,20 +33,11 @@ class ManifestsApi {
   /// [manifestId] The unique numeric identifier for the manifest
   /// Returns a [GetManifestFilesResponse] containing the manifest files
   Future<GetManifestFilesResponse> getManifestFiles(int manifestId) async {
-    final uri = Uri.parse('$_baseUrl/api/manifests/files/').replace(
+    final json = await httpClient.get(
+      '/api/manifests/files/',
       queryParameters: {'manifest_id': manifestId.toString()},
     );
-
-    final response = await _client.get(uri, headers: _headers);
-
-    final data = json.decode(response.body) as Map<String, dynamic>;
-    if (response.statusCode == 200) {
-      return GetManifestFilesResponse.fromJson(data);
-    }
-
-    throw StarShipItException(
-      'Failed to get manifest files: ${response.statusCode} ${response.reasonPhrase}',
-    );
+    return GetManifestFilesResponse.fromJson(json);
   }
 
   /// Creates a manifest for the specified shipments
@@ -69,22 +46,11 @@ class ManifestsApi {
   /// Returns a [ManifestShipmentsResponse] containing the manifest PDF
   Future<ManifestShipmentsResponse> manifestShipments(
       ManifestShipmentsRequest request) async {
-    final uri = Uri.parse('$_baseUrl/api/manifests/shipments');
-
-    final response = await _client.post(
-      uri,
-      headers: _headers,
-      body: json.encode(request.toJson()),
+    final json = await httpClient.post(
+      '/api/manifests/shipments',
+      body: request.toJson(),
     );
-
-    final data = json.decode(response.body) as Map<String, dynamic>;
-    if (response.statusCode == 200) {
-      return ManifestShipmentsResponse.fromJson(data);
-    }
-
-    throw StarShipItException(
-      'Failed to manifest shipments: ${response.statusCode} ${response.reasonPhrase}',
-    );
+    return ManifestShipmentsResponse.fromJson(json);
   }
 
   /// Manifests all relevant records for a given carrier that are ready to be shipped
@@ -93,21 +59,10 @@ class ManifestsApi {
   /// Returns a [ManifestByCarrierResponse] containing the number of records manifested
   Future<ManifestByCarrierResponse> manifestByCarrier(
       ManifestByCarrierRequest request) async {
-    final uri = Uri.parse('$_baseUrl/api/manifests/carrier');
-
-    final response = await _client.post(
-      uri,
-      headers: _headers,
-      body: json.encode(request.toJson()),
+    final json = await httpClient.post(
+      '/api/manifests/carrier',
+      body: request.toJson(),
     );
-
-    final data = json.decode(response.body) as Map<String, dynamic>;
-    if (response.statusCode == 200) {
-      return ManifestByCarrierResponse.fromJson(data);
-    }
-
-    throw StarShipItException(
-      'Failed to manifest by carrier: ${response.statusCode} ${response.reasonPhrase}',
-    );
+    return ManifestByCarrierResponse.fromJson(json);
   }
 }

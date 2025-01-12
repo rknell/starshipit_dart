@@ -267,8 +267,20 @@ class OrdersApi {
 
   /// Creates a new unshipped order
   ///
-  /// The [request] parameter contains the order details including shipping information,
-  /// destination details, and items to be shipped.
+  /// Endpoint: POST https://api.starshipit.com/api/orders
+  ///
+  /// Request:
+  /// - [order]: The order details object (Create Order Model)
+  ///
+  /// Response:
+  /// - [order]: Created orders details (Full Order Model)
+  /// - [success]: Determines whether the request was successfully submitted
+  /// - [errors]: List of detailed errors (Error Model)
+  ///
+  /// Required Headers:
+  /// - Content-Type: application/json
+  /// - StarShipIT-Api-Key: Api key in your Starshipit account under Settings > API > API Key
+  /// - Ocp-Apim-Subscription-Key: Subscription key in your Starshipit account under Settings > API > Subscription key
   ///
   /// Throws a [StarShipItException] if the request fails.
   Future<CreateOrdersResponse> create(CreateOrdersRequest request) async {

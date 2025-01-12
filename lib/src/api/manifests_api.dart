@@ -44,8 +44,15 @@ class ManifestsApi {
 
   /// Retrieves a list of manifest files by manifest ID
   ///
-  /// [manifestId] The unique numeric identifier for the manifest
-  /// Returns a [GetManifestFilesResponse] containing the manifest files
+  /// Endpoint: GET /api/manifests/files/
+  ///
+  /// See [GetManifestFilesRequest] for request parameters:
+  /// - manifest_id (required): The unique numeric identifier for the manifest
+  ///
+  /// See [GetManifestFilesResponse] for response details:
+  /// - files: List of manifest files with file_name and file_data (base64 PDF)
+  /// - success: Whether the request was successful
+  /// - errors: Optional list of errors if request failed
   Future<GetManifestFilesResponse> getManifestFiles(int manifestId) async {
     final json = await httpClient.get(
       '/api/manifests/files/',

@@ -247,10 +247,25 @@ class OrdersApi {
     return MergeOrdersResponse.fromJson(json);
   }
 
-  /// Gets a list of unshipped orders that can be merged
+  /// Gets a list of unshipped orders where there are multiple orders going to the same person at the same address
   ///
-  /// Returns orders where there are multiple orders going to the same person at the same address.
-  /// Use [request] to customize pagination with limit and page parameters.
+  /// Endpoint: GET https://api.starshipit.com/api/orders/mergeable
+  ///
+  /// Parameters:
+  /// - [limit] (optional): Amount of results (default: 50, min: 1, max: 250)
+  /// - [page] (optional): Page to show (default: 1)
+  ///
+  /// Response:
+  /// - [orders]: List of mergeable orders type, containing:
+  ///   - [primary_order_id]: The Starshipit order_id of the potential 'master' order
+  ///   - [orders]: A list of all mergable orders, including the 'master' order
+  /// - [success]: Determines whether the request was successfully submitted
+  /// - [errors]: List of detailed errors (Error Model)
+  ///
+  /// Required Headers:
+  /// - Content-Type: application/json
+  /// - StarShipIT-Api-Key: Api key in your Starshipit account under Settings > API > API Key
+  /// - Ocp-Apim-Subscription-Key: Subscription key in your Starshipit account under Settings > API > Subscription key
   ///
   /// Throws a [StarShipItException] if the request fails.
   Future<GetMergeableOrdersResponse> getMergeable([

@@ -10,6 +10,7 @@ import 'starshipit_http_client.dart';
 /// - Track shipments using tracking numbers or order numbers
 /// - Get detailed tracking events and status updates
 /// - Monitor shipment progress through carrier networks
+/// - Create tracking-only orders for external shipments
 class TrackingApi {
   /// Creates a new [TrackingApi] instance
   TrackingApi({
@@ -64,35 +65,38 @@ class TrackingApi {
 
   /// Creates tracking-only orders for external shipments.
   ///
-  /// This endpoint allows you to add orders that were created and shipped outside of StarShipIt
+  /// Makes a POST request to `/api/orders/shipped` to create tracking-only orders.
+  ///
+  /// This endpoint allows you to add orders that were created and shipped outside of StarShipIT
   /// into the tracking system. This is useful for maintaining a centralized tracking hub for all
   /// orders, regardless of where they were created.
   ///
+  /// [orders] - List of tracking only orders to create
+  ///
+  /// Returns a [CreateTrackingOnlyOrdersResponse] containing the created orders and their tracking numbers.
+  ///
   /// Example:
   /// ```dart
-  /// final request = CreateTrackingOnlyOrdersRequest(
-  ///   orders: [
-  ///     TrackingOnlyOrder(
-  ///       name: 'John Smith',
-  ///       orderNumber: 'ORD10001',
-  ///       carrier: Carrier.ausPost,
-  ///       trackingNumber: 'XYZ-92312-VSDV-24814',
-  ///       country: 'Australia',
-  ///       postcode: '2000',
-  ///     ),
-  ///   ],
-  /// );
-  /// final response = await trackingApi.createTrackingOnlyOrders(request);
+  /// final response = await trackingApi.createTrackingOnlyOrders([
+  ///   TrackingOnlyOrder(
+  ///     name: 'John Smith',
+  ///     orderNumber: 'ORD10001',
+  ///     carrier: Carrier.ausPost,
+  ///     trackingNumber: 'XYZ-92312-VSDV-24814',
+  ///     country: 'Australia',
+  ///     postcode: '2000',
+  ///   ),
+  /// ]);
   /// ```
   ///
   /// Throws a [StarShipItException] if the request fails.
   Future<CreateTrackingOnlyOrdersResponse> createTrackingOnlyOrders(
-    CreateTrackingOnlyOrdersRequest request,
+    List<TrackingOnlyOrder> orders,
   ) async {
-    final json = await httpClient.post(
+    final response = await httpClient.post(
       '/api/orders/shipped',
-      body: request.toJson(),
+      body: {'orders': orders.map((order) => order.toJson()).toList()},
     );
-    return CreateTrackingOnlyOrdersResponse.fromJson(json);
+    return CreateTrackingOnlyOrdersResponse.fromJson(response);
   }
 }

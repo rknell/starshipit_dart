@@ -15,8 +15,26 @@ class OrdersApi {
 
   /// Lists all unshipped orders
   ///
-  /// By default, returns orders updated in the last 24 hours.
-  /// Use [request] to customize the query parameters.
+  /// Get a list of all unshipped orders (default: orders updated in the last 24 hours)
+  ///
+  /// Parameters:
+  /// - [since_order_date] (optional): Show orders created after date in UTC (date-time in RFC3339 format)
+  /// - [since_last_updated] (optional): Show orders recently updated after date in UTC (date-time in RFC3339 format)
+  /// - [ids_only] (optional): Show all unshipped order_ids only
+  /// - [limit] (optional): Amount of results (default: 50) (maximum: 250)
+  /// - [page] (optional): Page to show (default: 1)
+  ///
+  /// Response:
+  /// - [orders]: List of unshipped orders details (Full Order Model)
+  /// - [order_ids]: List of unshipped order_ids (only present if ids_only is set to true)
+  /// - [total_pages]: Total number of pages available
+  /// - [success]: Determines whether the request was successfully submitted
+  /// - [errors]: List of detailed errors (Error Model) (only present if the request resulted in an error)
+  ///
+  /// Required Headers:
+  /// - Content-Type: application/json
+  /// - StarShipIT-Api-Key: Api key in your Starshipit account under Settings > API > API Key
+  /// - Ocp-Apim-Subscription-Key: Subscription key in your Starshipit account under Settings > API > Subscription key
   ///
   /// Throws a [StarShipItException] if the request fails.
   Future<ListUnshippedOrdersResponse> listUnshipped({

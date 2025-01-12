@@ -1,12 +1,19 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'tracking_status.dart';
 
 part 'webhook_data.g.dart';
 
-/// Represents the data received from a StarShipIt webhook
-@JsonSerializable(explicitToJson: true)
+/// Represents the data sent by StarShipIT in webhook notifications when tracking updates are received.
+///
+/// Webhooks are configured in the StarShipIT dashboard under Settings > Customer Notifications.
+/// The endpoint URL must accept POST requests and return HTTP 200 OK.
+///
+/// Example use cases:
+/// - Send order update emails to customers
+/// - Update order status in your database
+/// - Trigger fulfillment workflows
+@JsonSerializable()
 class WebhookData {
-
+  /// Creates a new [WebhookData] instance
   const WebhookData({
     required this.orderNumber,
     required this.carrierName,
@@ -17,47 +24,65 @@ class WebhookData {
     required this.lastUpdatedDate,
   });
 
-  /// Creates a [WebhookData] instance from a JSON map
+  /// Factory constructor for creating a [WebhookData] instance from JSON data
   factory WebhookData.fromJson(Map<String, dynamic> json) =>
       _$WebhookDataFromJson(json);
-  /// The identifier of the order pulled from source eCommerce platform
-  @JsonKey(name: 'order_number')
+
+  /// The identifier of the order from the source eCommerce platform
   final String orderNumber;
 
   /// Name of the courier used for shipment delivery
-  @JsonKey(name: 'carrier_name')
   final String carrierName;
 
   /// Courier product service used for shipment delivery
-  @JsonKey(name: 'carrier_service')
   final String carrierService;
 
   /// The date when the label was generated for the shipment
-  @JsonKey(name: 'shipment_date')
   final DateTime shipmentDate;
 
   /// Courier tracking number
-  @JsonKey(name: 'tracking_number')
   final String trackingNumber;
 
   /// Last tracking status from the courier
-  @JsonKey(
-    name: 'tracking_status',
-    fromJson: _trackingStatusFromJson,
-    toJson: _trackingStatusToJson,
-  )
   final TrackingStatus trackingStatus;
 
   /// Last tracking updated date from the courier
-  @JsonKey(name: 'last_updated_date')
   final DateTime lastUpdatedDate;
 
-  /// Converts this [WebhookData] instance to a JSON map
+  /// Converts this instance to JSON
   Map<String, dynamic> toJson() => _$WebhookDataToJson(this);
+}
 
-  static TrackingStatus _trackingStatusFromJson(String value) =>
-      TrackingStatus.fromString(value);
+/// Possible tracking status values that can be received in webhook notifications
+@JsonEnum(fieldRename: FieldRename.pascal)
+enum TrackingStatus {
+  /// Label has been printed but shipment not yet picked up
+  printed,
 
-  static String _trackingStatusToJson(TrackingStatus status) =>
-      status.toString();
+  /// Shipment has been dispatched to carrier
+  dispatched,
+
+  /// Shipment is in transit with carrier
+  inTransit,
+
+  /// Shipment is out for delivery
+  outForDelivery,
+
+  /// Shipment has been delivered
+  delivered,
+
+  /// Item is ready for pickup in store
+  pickupInStore,
+
+  /// Delivery was attempted but unsuccessful
+  attemptedDelivery,
+
+  /// There was an exception/issue with delivery
+  exception,
+
+  /// Item is awaiting collection
+  awaitingCollection,
+
+  /// Shipment has been cancelled
+  cancelled,
 }

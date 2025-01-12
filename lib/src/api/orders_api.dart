@@ -151,8 +151,31 @@ class OrdersApi {
 
   /// Lists order summaries with optional filtering and sorting
   ///
-  /// By default, returns the first page of 100 orders sorted by order date descending.
-  /// Use the [request] parameter to customize the query with filters, sorting, and pagination.
+  /// Get a summary of orders by status
+  ///
+  /// Endpoint: GET https://api.starshipit.com/api/orders/summary
+  ///
+  /// Parameters:
+  /// - [order_status]: Order status to show order summary of (accepted values: new, shipped, printed, archived)
+  /// - [page]: Page number (accepted values: 1, 2, 3, ...)
+  /// - [page_size]: Number of results to return (default: 500, maximum: 500) (accepted values: 1, 2, 3, ..., 500)
+  /// - [filter]: See the Filters section on how to use this (example: "Order:::1419" or "Order:1419,Country:::Australia")
+  /// - [sort]: Order field to sort by (accepted values: Address, Carrier, Name, Country, Date (order_date), Items,
+  ///   Manifest (manifest_number), Order (order_number), Product, Quantity, ShippedDate, ShippingDescription,
+  ///   ShippingMethod, SKU, StockOnHand, Platform, State, Status (order status), Weight, Writeback (writeback_status))
+  /// - [sort_direction]: Sort Direction (accepted values: Ascending, Descending)
+  ///
+  /// Response:
+  /// - [orders]: List of orders
+  /// - [order_counts]: Stats on orders
+  /// - [errors]: List of detailed errors (Error Model) (only present if the request resulted in an error)
+  ///
+  /// Required Headers:
+  /// - Content-Type: application/json
+  /// - StarShipIT-Api-Key: Api key in your Starshipit account under Settings > API > API Key
+  /// - Ocp-Apim-Subscription-Key: Subscription key in your Starshipit account under Settings > API > Subscription key
+  ///
+  /// Throws a [StarShipItException] if the request fails.
   Future<ListOrdersSummaryResponse> listSummary([
     ListOrdersSummaryRequest? request,
   ]) async {

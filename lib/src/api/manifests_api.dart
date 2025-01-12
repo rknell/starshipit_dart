@@ -6,6 +6,11 @@ import '../models/models.dart';
 import 'starshipit_http_client.dart';
 
 /// Handles all manifest-related API requests
+///
+/// All endpoints require the following headers:
+/// - Content-Type: application/json
+/// - StarShipIT-Api-Key: API key from Settings > API > API Key
+/// - Ocp-Apim-Subscription-Key: Subscription key from Settings > API > Subscription key
 class ManifestsApi {
   /// Creates a new manifests API instance
   ManifestsApi({
@@ -14,11 +19,20 @@ class ManifestsApi {
 
   final StarshipitHttpClient httpClient;
 
-  /// Retrieves a list of manifests
+  /// Retrieve a list of manifests. Results are ordered by date in descending order.
   ///
-  /// Results are ordered by date in descending order.
-  /// [request] Optional request parameters for pagination
-  /// Returns a [GetManifestsResponse] containing the matching manifests
+  /// Endpoint: GET /api/manifests
+  ///
+  /// See [GetManifestsRequest] for available request parameters:
+  /// - page (optional): Page to show. Default: 1
+  /// - limit (optional): Maximum number of records in the result. Default: 50. Maximum: 250
+  ///
+  /// See [GetManifestsResponse] for response details:
+  /// - manifests: List of manifest records ([Manifest] model)
+  /// - success: Whether the request was successful
+  /// - errors: Optional list of errors
+  /// - total_pages: Total number of pages containing records
+  /// - total_count: Total number of manifest records
   Future<GetManifestsResponse> getManifests(
       [GetManifestsRequest? request]) async {
     final json = await httpClient.get(

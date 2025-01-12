@@ -87,11 +87,27 @@ class ShippingApi {
     return PrintLabelsResponse.fromJson(json);
   }
 
-  /// Prints packing slips for single or multiple orders
+  /// Prints packing slips for single or multiple orders.
   ///
-  /// The [request] parameter specifies the list of order IDs to print packing slips for.
-  /// Set [request.summary] to true to generate a packing summary that shows quantities of each SKU.
+  /// Makes a POST request to `/api/orders/packingslips` to generate packing slips.
+  /// Can also generate a packing summary that shows quantities of each SKU.
   /// The response includes base64 encoded PDF data that can be decoded to a printable document.
+  ///
+  /// Required headers:
+  /// - Content-Type: application/json
+  /// - StarShipIT-Api-Key: API key from Settings > API > API Key
+  /// - Ocp-Apim-Subscription-Key: Subscription key from Settings > API > Subscription key
+  ///
+  /// Parameters:
+  /// - [request]: The [PrintPackingSlipsRequest] containing:
+  ///   - orderIds: List of order IDs to print packing slips for
+  ///   - summary: Set to true to generate a packing summary showing quantities of each SKU
+  ///
+  /// Returns a [PrintPackingSlipsResponse] containing:
+  /// - labelType: Type of label name
+  /// - pdf: Base64 string which can be converted to a PDF file for printing
+  /// - success: Determines whether the request was successfully submitted
+  /// - errors: List of detailed errors if the request was not successful
   ///
   /// Throws a [StarShipItException] if the request fails.
   Future<PrintPackingSlipsResponse> printPackingSlips(

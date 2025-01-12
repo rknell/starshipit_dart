@@ -3,10 +3,12 @@ import 'error.dart';
 
 part 'print_packing_slips_response.g.dart';
 
-/// Response model for printing packing slips
+/// Response model for printing packing slips.
+///
+/// Contains the type of label and base64 encoded PDF data that can be decoded
+/// to generate a printable document.
 @JsonSerializable()
 class PrintPackingSlipsResponse {
-
   /// Creates a new [PrintPackingSlipsResponse] instance
   const PrintPackingSlipsResponse({
     required this.labelType,
@@ -18,10 +20,11 @@ class PrintPackingSlipsResponse {
   /// Creates a [PrintPackingSlipsResponse] from JSON data
   factory PrintPackingSlipsResponse.fromJson(Map<String, dynamic> json) =>
       _$PrintPackingSlipsResponseFromJson(json);
+
   /// Type of label name
   final String labelType;
 
-  /// base64 string which can be converted to a PDF file for printing
+  /// Base64 string which can be converted to a PDF file for printing
   final String pdf;
 
   /// Determines whether the request was successfully submitted

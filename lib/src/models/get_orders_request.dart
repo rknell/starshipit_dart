@@ -58,7 +58,6 @@ enum OrderInclude {
 enum OrderSortColumn {
   /// Sort by address
   @JsonValue('Address')
-  address,get_order
 
   /// Sort by carrier
   @JsonValue('Carrier')

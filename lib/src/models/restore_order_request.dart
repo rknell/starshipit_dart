@@ -14,13 +14,13 @@ class RestoreOrderRequest {
     required this.orderId,
   });
 
-  /// The unique numeric identifier for the order
-  @JsonKey(name: 'order_id')
-  final int orderId;
-
   /// Creates a RestoreOrderRequest from JSON
   factory RestoreOrderRequest.fromJson(Map<String, dynamic> json) =>
       _$RestoreOrderRequestFromJson(json);
+
+  /// The unique numeric identifier for the order
+  @JsonKey(name: 'order_id')
+  final int orderId;
 
   /// Converts the RestoreOrderRequest to JSON
   Map<String, dynamic> toJson() => _$RestoreOrderRequestToJson(this);

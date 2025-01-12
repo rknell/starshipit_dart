@@ -38,6 +38,10 @@ class SenderDetails {
         assert(country.length >= 2 && country.length <= 100,
             'country must be between 2 and 100 characters');
 
+  /// Creates a SenderDetails instance from JSON
+  factory SenderDetails.fromJson(Map<String, dynamic> json) =>
+      _$SenderDetailsFromJson(json);
+
   /// Contact name of the sender (max length: 100)
   final String name;
 
@@ -71,10 +75,6 @@ class SenderDetails {
 
   /// The country name of pickup address (min length: 2, max length: 100)
   final String country;
-
-  /// Creates a SenderDetails instance from JSON
-  factory SenderDetails.fromJson(Map<String, dynamic> json) =>
-      _$SenderDetailsFromJson(json);
 
   /// Converts the SenderDetails instance to JSON
   Map<String, dynamic> toJson() => _$SenderDetailsToJson(this);

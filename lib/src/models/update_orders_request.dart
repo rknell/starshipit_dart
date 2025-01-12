@@ -15,12 +15,12 @@ class UpdateOrdersRequest {
     required this.order,
   });
 
-  /// The order details to update
-  final UpdateOrderRequest order;
-
   /// Creates an UpdateOrdersRequest from JSON
   factory UpdateOrdersRequest.fromJson(Map<String, dynamic> json) =>
       _$UpdateOrdersRequestFromJson(json);
+
+  /// The order details to update
+  final UpdateOrderRequest order;
 
   /// Converts the UpdateOrdersRequest to JSON
   Map<String, dynamic> toJson() => _$UpdateOrdersRequestToJson(this);

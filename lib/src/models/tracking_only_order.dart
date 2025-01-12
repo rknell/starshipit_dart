@@ -6,6 +6,19 @@ part 'tracking_only_order.g.dart';
 /// Represents a tracking-only order for external shipments
 @JsonSerializable(explicitToJson: true)
 class TrackingOnlyOrder {
+
+  const TrackingOnlyOrder({
+    this.name,
+    this.orderNumber,
+    required this.carrier,
+    required this.trackingNumber,
+    required this.country,
+    required this.postcode,
+  });
+
+  /// Creates a [TrackingOnlyOrder] from JSON map
+  factory TrackingOnlyOrder.fromJson(Map<String, dynamic> json) =>
+      _$TrackingOnlyOrderFromJson(json);
   /// The name of the customer (optional)
   final String? name;
 
@@ -29,19 +42,6 @@ class TrackingOnlyOrder {
 
   /// The destination postcode
   final String postcode;
-
-  const TrackingOnlyOrder({
-    this.name,
-    this.orderNumber,
-    required this.carrier,
-    required this.trackingNumber,
-    required this.country,
-    required this.postcode,
-  });
-
-  /// Creates a [TrackingOnlyOrder] from JSON map
-  factory TrackingOnlyOrder.fromJson(Map<String, dynamic> json) =>
-      _$TrackingOnlyOrderFromJson(json);
 
   /// Converts this [TrackingOnlyOrder] to a JSON map
   Map<String, dynamic> toJson() => _$TrackingOnlyOrderToJson(this);

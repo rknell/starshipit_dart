@@ -6,11 +6,6 @@ part 'assign_orders_response.g.dart';
 /// Response model for the assign orders operation
 @JsonSerializable()
 class AssignOrdersResponse {
-  /// Determines whether the request was successfully submitted
-  final bool success;
-
-  /// List of detailed errors if the request was not successful
-  final List<StarShipItError>? errors;
 
   /// Creates a new [AssignOrdersResponse] instance
   const AssignOrdersResponse({
@@ -21,6 +16,11 @@ class AssignOrdersResponse {
   /// Creates an [AssignOrdersResponse] from JSON data
   factory AssignOrdersResponse.fromJson(Map<String, dynamic> json) =>
       _$AssignOrdersResponseFromJson(json);
+  /// Determines whether the request was successfully submitted
+  final bool success;
+
+  /// List of detailed errors if the request was not successful
+  final List<StarShipItError>? errors;
 
   /// Converts this [AssignOrdersResponse] into JSON data
   Map<String, dynamic> toJson() => _$AssignOrdersResponseToJson(this);

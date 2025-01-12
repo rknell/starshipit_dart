@@ -17,15 +17,15 @@ class RestoreOrderResponse {
     this.errors,
   });
 
+  /// Creates a RestoreOrderResponse from JSON
+  factory RestoreOrderResponse.fromJson(Map<String, dynamic> json) =>
+      _$RestoreOrderResponseFromJson(json);
+
   /// Whether the request was successfully submitted
   final bool success;
 
   /// List of errors if the request failed
   final List<StarShipItError>? errors;
-
-  /// Creates a RestoreOrderResponse from JSON
-  factory RestoreOrderResponse.fromJson(Map<String, dynamic> json) =>
-      _$RestoreOrderResponseFromJson(json);
 
   /// Converts the RestoreOrderResponse to JSON
   Map<String, dynamic> toJson() => _$RestoreOrderResponseToJson(this);

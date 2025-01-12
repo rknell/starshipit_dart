@@ -2,7 +2,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 import 'error.dart';
 import 'shipments_order.dart';
-import 'list_shipments_request.dart';
 
 part 'list_shipments_response.g.dart';
 
@@ -17,6 +16,10 @@ class ListShipmentsResponse {
     required this.success,
     this.errors,
   });
+
+  /// Creates a ListShipmentsResponse from JSON
+  factory ListShipmentsResponse.fromJson(Map<String, dynamic> json) =>
+      _$ListShipmentsResponseFromJson(json);
 
   /// The status of the shipments returned
   @JsonKey(name: 'status')
@@ -34,10 +37,6 @@ class ListShipmentsResponse {
 
   /// List of errors if the request failed
   final List<StarShipItError>? errors;
-
-  /// Creates a ListShipmentsResponse from JSON
-  factory ListShipmentsResponse.fromJson(Map<String, dynamic> json) =>
-      _$ListShipmentsResponseFromJson(json);
 
   /// Converts the ListShipmentsResponse to JSON
   Map<String, dynamic> toJson() => _$ListShipmentsResponseToJson(this);

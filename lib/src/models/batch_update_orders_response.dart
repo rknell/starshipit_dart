@@ -17,15 +17,15 @@ class BatchUpdateOrdersResponse {
     this.errors,
   });
 
+  /// Creates a BatchUpdateOrdersResponse from JSON
+  factory BatchUpdateOrdersResponse.fromJson(Map<String, dynamic> json) =>
+      _$BatchUpdateOrdersResponseFromJson(json);
+
   /// Whether the request was successfully submitted
   final bool success;
 
   /// List of errors if the request failed
   final List<StarShipItError>? errors;
-
-  /// Creates a BatchUpdateOrdersResponse from JSON
-  factory BatchUpdateOrdersResponse.fromJson(Map<String, dynamic> json) =>
-      _$BatchUpdateOrdersResponseFromJson(json);
 
   /// Converts the BatchUpdateOrdersResponse to JSON
   Map<String, dynamic> toJson() => _$BatchUpdateOrdersResponseToJson(this);

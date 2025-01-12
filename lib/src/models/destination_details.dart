@@ -46,6 +46,10 @@ class DestinationDetails {
         assert(taxNumber == null || taxNumber.length <= 20,
             'tax_number must not exceed 20 characters');
 
+  /// Creates a DestinationDetails instance from JSON
+  factory DestinationDetails.fromJson(Map<String, dynamic> json) =>
+      _$DestinationDetailsFromJson(json);
+
   /// Contact name of the receiver (max length: 100)
   final String name;
 
@@ -91,10 +95,6 @@ class DestinationDetails {
   /// Recipient tax number (max length: 20)
   @JsonKey(name: 'tax_number')
   final String? taxNumber;
-
-  /// Creates a DestinationDetails instance from JSON
-  factory DestinationDetails.fromJson(Map<String, dynamic> json) =>
-      _$DestinationDetailsFromJson(json);
 
   /// Converts the DestinationDetails instance to JSON
   Map<String, dynamic> toJson() => _$DestinationDetailsToJson(this);

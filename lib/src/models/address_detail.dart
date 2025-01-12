@@ -42,6 +42,10 @@ class AddressDetail {
     required this.signatureRequired,
   });
 
+  /// Creates an AddressDetail from JSON
+  factory AddressDetail.fromJson(Map<String, dynamic> json) =>
+      _$AddressDetailFromJson(json);
+
   /// The unique internal identifier for the address
   final String code;
 
@@ -88,10 +92,6 @@ class AddressDetail {
   /// Default value for signature required on customer orders
   @JsonKey(name: 'signature_required')
   final bool signatureRequired;
-
-  /// Creates an AddressDetail from JSON
-  factory AddressDetail.fromJson(Map<String, dynamic> json) =>
-      _$AddressDetailFromJson(json);
 
   /// Converts the AddressDetail to JSON
   Map<String, dynamic> toJson() => _$AddressDetailToJson(this);

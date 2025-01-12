@@ -6,17 +6,6 @@ part 'print_packing_slips_response.g.dart';
 /// Response model for printing packing slips
 @JsonSerializable()
 class PrintPackingSlipsResponse {
-  /// Type of label name
-  final String labelType;
-
-  /// base64 string which can be converted to a PDF file for printing
-  final String pdf;
-
-  /// Determines whether the request was successfully submitted
-  final bool success;
-
-  /// List of detailed errors if the request was not successful
-  final List<StarShipItError>? errors;
 
   /// Creates a new [PrintPackingSlipsResponse] instance
   const PrintPackingSlipsResponse({
@@ -29,6 +18,17 @@ class PrintPackingSlipsResponse {
   /// Creates a [PrintPackingSlipsResponse] from JSON data
   factory PrintPackingSlipsResponse.fromJson(Map<String, dynamic> json) =>
       _$PrintPackingSlipsResponseFromJson(json);
+  /// Type of label name
+  final String labelType;
+
+  /// base64 string which can be converted to a PDF file for printing
+  final String pdf;
+
+  /// Determines whether the request was successfully submitted
+  final bool success;
+
+  /// List of detailed errors if the request was not successful
+  final List<StarShipItError>? errors;
 
   /// Converts this [PrintPackingSlipsResponse] into JSON data
   Map<String, dynamic> toJson() => _$PrintPackingSlipsResponseToJson(this);

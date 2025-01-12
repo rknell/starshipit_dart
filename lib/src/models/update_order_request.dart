@@ -38,6 +38,10 @@ class UpdateOrderRequest {
             'shipping_description must not exceed 100 characters'),
         assert(currency.length == 3, 'currency must be exactly 3 characters');
 
+  /// Creates an UpdateOrderRequest from JSON
+  factory UpdateOrderRequest.fromJson(Map<String, dynamic> json) =>
+      _$UpdateOrderRequestFromJson(json);
+
   /// The unique numeric identifier for the order (read-only)
   @JsonKey(name: 'order_id')
   final int orderId;
@@ -97,10 +101,6 @@ class UpdateOrderRequest {
   /// Determine if the order is manifested
   @JsonKey(name: 'is_manifested')
   final bool isManifested;
-
-  /// Creates an UpdateOrderRequest from JSON
-  factory UpdateOrderRequest.fromJson(Map<String, dynamic> json) =>
-      _$UpdateOrderRequestFromJson(json);
 
   /// Converts the UpdateOrderRequest to JSON
   Map<String, dynamic> toJson() => _$UpdateOrderRequestToJson(this);

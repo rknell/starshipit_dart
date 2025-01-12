@@ -6,8 +6,6 @@ part 'assign_orders_request.g.dart';
 /// Request model for assigning orders between accounts
 @JsonSerializable()
 class AssignOrdersRequest {
-  /// List of order assignments
-  final List<AssignOrder> orders;
 
   /// Creates a new [AssignOrdersRequest] instance
   const AssignOrdersRequest({
@@ -17,6 +15,8 @@ class AssignOrdersRequest {
   /// Creates an [AssignOrdersRequest] from JSON data
   factory AssignOrdersRequest.fromJson(Map<String, dynamic> json) =>
       _$AssignOrdersRequestFromJson(json);
+  /// List of order assignments
+  final List<AssignOrder> orders;
 
   /// Converts this [AssignOrdersRequest] into JSON data
   Map<String, dynamic> toJson() => _$AssignOrdersRequestToJson(this);

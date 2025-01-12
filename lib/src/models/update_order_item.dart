@@ -27,6 +27,10 @@ class UpdateOrderItem {
         assert(countryOfOrigin.length <= 50,
             'country_of_origin must not exceed 50 characters');
 
+  /// Creates an UpdateOrderItem from JSON
+  factory UpdateOrderItem.fromJson(Map<String, dynamic> json) =>
+      _$UpdateOrderItemFromJson(json);
+
   /// The unique numeric identifier for the order item
   @JsonKey(name: 'item_id')
   final int itemId;
@@ -73,10 +77,6 @@ class UpdateOrderItem {
   /// The count of stock for that item, used on packing slips
   @JsonKey(name: 'stock_on_hand')
   final int stockOnHand;
-
-  /// Creates an UpdateOrderItem from JSON
-  factory UpdateOrderItem.fromJson(Map<String, dynamic> json) =>
-      _$UpdateOrderItemFromJson(json);
 
   /// Converts the UpdateOrderItem to JSON
   Map<String, dynamic> toJson() => _$UpdateOrderItemToJson(this);

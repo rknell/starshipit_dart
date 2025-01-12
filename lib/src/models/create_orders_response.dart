@@ -20,6 +20,10 @@ class CreateOrdersResponse {
     this.errors,
   });
 
+  /// Creates a CreateOrdersResponse from JSON
+  factory CreateOrdersResponse.fromJson(Map<String, dynamic> json) =>
+      _$CreateOrdersResponseFromJson(json);
+
   /// The created order details
   final FullOrder? order;
 
@@ -28,10 +32,6 @@ class CreateOrdersResponse {
 
   /// List of errors if the request failed
   final List<StarShipItError>? errors;
-
-  /// Creates a CreateOrdersResponse from JSON
-  factory CreateOrdersResponse.fromJson(Map<String, dynamic> json) =>
-      _$CreateOrdersResponseFromJson(json);
 
   /// Converts the CreateOrdersResponse to JSON
   Map<String, dynamic> toJson() => _$CreateOrdersResponseToJson(this);

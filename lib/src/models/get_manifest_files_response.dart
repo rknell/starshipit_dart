@@ -19,6 +19,10 @@ class GetManifestFilesResponse {
     this.errors,
   });
 
+  /// Creates a GetManifestFilesResponse from JSON
+  factory GetManifestFilesResponse.fromJson(Map<String, dynamic> json) =>
+      _$GetManifestFilesResponseFromJson(json);
+
   /// List of records for the manifest files matching the supplied criteria
   final List<ManifestFile> files;
 
@@ -27,10 +31,6 @@ class GetManifestFilesResponse {
 
   /// Optional list of detailed errors
   final List<StarShipItError>? errors;
-
-  /// Creates a GetManifestFilesResponse from JSON
-  factory GetManifestFilesResponse.fromJson(Map<String, dynamic> json) =>
-      _$GetManifestFilesResponseFromJson(json);
 
   /// Converts the GetManifestFilesResponse to JSON
   Map<String, dynamic> toJson() => _$GetManifestFilesResponseToJson(this);

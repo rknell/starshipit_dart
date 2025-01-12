@@ -30,6 +30,10 @@ class FullOrderItem {
     required this.value,
   });
 
+  /// Creates a FullOrderItem from JSON
+  factory FullOrderItem.fromJson(Map<String, dynamic> json) =>
+      _$FullOrderItemFromJson(json);
+
   /// The unique numeric identifier for the order item
   @JsonKey(name: 'item_id')
   final int itemId;
@@ -60,10 +64,6 @@ class FullOrderItem {
 
   /// Unit price of the product
   final double value;
-
-  /// Creates a FullOrderItem from JSON
-  factory FullOrderItem.fromJson(Map<String, dynamic> json) =>
-      _$FullOrderItemFromJson(json);
 
   /// Converts the FullOrderItem to JSON
   Map<String, dynamic> toJson() => _$FullOrderItemToJson(this);

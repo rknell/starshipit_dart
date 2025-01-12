@@ -20,6 +20,10 @@ class ListShippedOrdersResponse {
           'Either orders or orderIds must be provided',
         );
 
+  /// Creates a ListShippedOrdersResponse from JSON
+  factory ListShippedOrdersResponse.fromJson(Map<String, dynamic> json) =>
+      _$ListShippedOrdersResponseFromJson(json);
+
   /// List of shipped orders details
   final List<FullOrder>? orders;
 
@@ -36,10 +40,6 @@ class ListShippedOrdersResponse {
 
   /// List of errors if the request failed
   final List<StarShipItError>? errors;
-
-  /// Creates a ListShippedOrdersResponse from JSON
-  factory ListShippedOrdersResponse.fromJson(Map<String, dynamic> json) =>
-      _$ListShippedOrdersResponseFromJson(json);
 
   /// Converts the ListShippedOrdersResponse to JSON
   Map<String, dynamic> toJson() => _$ListShippedOrdersResponseToJson(this);

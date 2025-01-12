@@ -23,6 +23,10 @@ class GetManifestsResponse {
     required this.totalCount,
   });
 
+  /// Creates a GetManifestsResponse from JSON
+  factory GetManifestsResponse.fromJson(Map<String, dynamic> json) =>
+      _$GetManifestsResponseFromJson(json);
+
   /// Records for the manifests matching the supplied criteria
   final List<Manifest> manifests;
 
@@ -39,10 +43,6 @@ class GetManifestsResponse {
   /// Total number of manifest records
   @JsonKey(name: 'total_count')
   final int totalCount;
-
-  /// Creates a GetManifestsResponse from JSON
-  factory GetManifestsResponse.fromJson(Map<String, dynamic> json) =>
-      _$GetManifestsResponseFromJson(json);
 
   /// Converts the GetManifestsResponse to JSON
   Map<String, dynamic> toJson() => _$GetManifestsResponseToJson(this);

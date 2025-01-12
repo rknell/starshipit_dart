@@ -14,13 +14,13 @@ class DeleteAddressRequest {
     required this.addressIds,
   });
 
-  /// List of address IDs to delete
-  @JsonKey(name: 'address_ids')
-  final List<int> addressIds;
-
   /// Creates a DeleteAddressRequest from JSON
   factory DeleteAddressRequest.fromJson(Map<String, dynamic> json) =>
       _$DeleteAddressRequestFromJson(json);
+
+  /// List of address IDs to delete
+  @JsonKey(name: 'address_ids')
+  final List<int> addressIds;
 
   /// Converts the DeleteAddressRequest to JSON
   Map<String, dynamic> toJson() => _$DeleteAddressRequestToJson(this);

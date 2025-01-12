@@ -15,6 +15,10 @@ class ListDeliveredOrdersResponse {
     this.errors,
   });
 
+  /// Creates a ListDeliveredOrdersResponse from JSON
+  factory ListDeliveredOrdersResponse.fromJson(Map<String, dynamic> json) =>
+      _$ListDeliveredOrdersResponseFromJson(json);
+
   /// List of delivered orders details
   final List<FullOrder> orders;
 
@@ -23,10 +27,6 @@ class ListDeliveredOrdersResponse {
 
   /// List of errors if the request failed
   final List<StarShipItError>? errors;
-
-  /// Creates a ListDeliveredOrdersResponse from JSON
-  factory ListDeliveredOrdersResponse.fromJson(Map<String, dynamic> json) =>
-      _$ListDeliveredOrdersResponseFromJson(json);
 
   /// Converts the ListDeliveredOrdersResponse to JSON
   Map<String, dynamic> toJson() => _$ListDeliveredOrdersResponseToJson(this);

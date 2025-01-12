@@ -26,6 +26,10 @@ class SearchOrder {
     required this.country,
   });
 
+  /// Creates a SearchOrder from JSON
+  factory SearchOrder.fromJson(Map<String, dynamic> json) =>
+      _$SearchOrderFromJson(json);
+
   /// The unique numeric identifier for the order
   @JsonKey(name: 'order_id')
   final int orderId;
@@ -51,10 +55,6 @@ class SearchOrder {
 
   /// The country name of delivery address
   final String country;
-
-  /// Creates a SearchOrder from JSON
-  factory SearchOrder.fromJson(Map<String, dynamic> json) =>
-      _$SearchOrderFromJson(json);
 
   /// Converts the SearchOrder to JSON
   Map<String, dynamic> toJson() => _$SearchOrderToJson(this);

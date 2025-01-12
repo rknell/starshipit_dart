@@ -147,6 +147,10 @@ class TaxNumbers {
     required this.taxNumber,
   });
 
+  /// Creates a TaxNumbers from JSON
+  factory TaxNumbers.fromJson(Map<String, dynamic> json) =>
+      _$TaxNumbersFromJson(json);
+
   /// The type of tax number
   @JsonKey(name: 'tax_type')
   final TaxType taxType;
@@ -154,10 +158,6 @@ class TaxNumbers {
   /// The tax number
   @JsonKey(name: 'tax_number')
   final String taxNumber;
-
-  /// Creates a TaxNumbers from JSON
-  factory TaxNumbers.fromJson(Map<String, dynamic> json) =>
-      _$TaxNumbersFromJson(json);
 
   /// Converts the TaxNumbers to JSON
   Map<String, dynamic> toJson() => _$TaxNumbersToJson(this);

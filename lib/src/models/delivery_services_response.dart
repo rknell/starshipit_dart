@@ -21,6 +21,10 @@ class DeliveryServicesResponse {
     this.errors,
   });
 
+  /// Creates a DeliveryServicesResponse from JSON
+  factory DeliveryServicesResponse.fromJson(Map<String, dynamic> json) =>
+      _$DeliveryServicesResponseFromJson(json);
+
   /// List of available delivery services
   final List<DeliveryService> services;
 
@@ -33,10 +37,6 @@ class DeliveryServicesResponse {
 
   /// Optional list of detailed errors
   final List<StarShipItError>? errors;
-
-  /// Creates a DeliveryServicesResponse from JSON
-  factory DeliveryServicesResponse.fromJson(Map<String, dynamic> json) =>
-      _$DeliveryServicesResponseFromJson(json);
 
   /// Converts the DeliveryServicesResponse to JSON
   Map<String, dynamic> toJson() => _$DeliveryServicesResponseToJson(this);
@@ -65,6 +65,10 @@ class DeliveryService {
     this.currency,
     this.pricingBreakdown,
   });
+
+  /// Creates a DeliveryService from JSON
+  factory DeliveryService.fromJson(Map<String, dynamic> json) =>
+      _$DeliveryServiceFromJson(json);
 
   /// The carrier code
   final String carrier;
@@ -95,10 +99,6 @@ class DeliveryService {
   @JsonKey(name: 'pricing_breakdown')
   final Map<String, String>? pricingBreakdown;
 
-  /// Creates a DeliveryService from JSON
-  factory DeliveryService.fromJson(Map<String, dynamic> json) =>
-      _$DeliveryServiceFromJson(json);
-
   /// Converts the DeliveryService to JSON
   Map<String, dynamic> toJson() => _$DeliveryServiceToJson(this);
 }
@@ -127,6 +127,10 @@ class DeliveryServiceMetaField {
     this.availableValues,
   });
 
+  /// Creates a DeliveryServiceMetaField from JSON
+  factory DeliveryServiceMetaField.fromJson(Map<String, dynamic> json) =>
+      _$DeliveryServiceMetaFieldFromJson(json);
+
   /// The unique identifier for the meta field
   final String key;
 
@@ -150,10 +154,6 @@ class DeliveryServiceMetaField {
   /// The values for 'dropdownlist' display type
   @JsonKey(name: 'available_values')
   final List<String>? availableValues;
-
-  /// Creates a DeliveryServiceMetaField from JSON
-  factory DeliveryServiceMetaField.fromJson(Map<String, dynamic> json) =>
-      _$DeliveryServiceMetaFieldFromJson(json);
 
   /// Converts the DeliveryServiceMetaField to JSON
   Map<String, dynamic> toJson() => _$DeliveryServiceMetaFieldToJson(this);

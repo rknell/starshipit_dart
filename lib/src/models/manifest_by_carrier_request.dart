@@ -14,12 +14,12 @@ class ManifestByCarrierRequest {
     required this.carrier,
   });
 
-  /// The string representation of the carrier enum value for the selected carrier
-  final String carrier;
-
   /// Creates a ManifestByCarrierRequest from JSON
   factory ManifestByCarrierRequest.fromJson(Map<String, dynamic> json) =>
       _$ManifestByCarrierRequestFromJson(json);
+
+  /// The string representation of the carrier enum value for the selected carrier
+  final String carrier;
 
   /// Converts the ManifestByCarrierRequest to JSON
   Map<String, dynamic> toJson() => _$ManifestByCarrierRequestToJson(this);

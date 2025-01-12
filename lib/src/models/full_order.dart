@@ -112,6 +112,10 @@ class FullOrder {
     required this.manifested,
   });
 
+  /// Creates a FullOrder from JSON
+  factory FullOrder.fromJson(Map<String, dynamic> json) =>
+      _$FullOrderFromJson(json);
+
   /// The unique numeric identifier for the order
   @JsonKey(name: 'order_id')
   final int orderId;
@@ -228,10 +232,6 @@ class FullOrder {
 
   /// Determine whether shipment is manifested
   final bool manifested;
-
-  /// Creates a FullOrder from JSON
-  factory FullOrder.fromJson(Map<String, dynamic> json) =>
-      _$FullOrderFromJson(json);
 
   /// Converts the FullOrder to JSON
   Map<String, dynamic> toJson() => _$FullOrderToJson(this);

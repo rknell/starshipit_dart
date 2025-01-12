@@ -21,6 +21,10 @@ class GetFilteredAddressesResponse {
     this.errors,
   });
 
+  /// Creates a GetFilteredAddressesResponse from JSON
+  factory GetFilteredAddressesResponse.fromJson(Map<String, dynamic> json) =>
+      _$GetFilteredAddressesResponseFromJson(json);
+
   /// Records for the addresses matching the supplied criteria
   final List<AddressBookAddress> addresses;
 
@@ -33,10 +37,6 @@ class GetFilteredAddressesResponse {
 
   /// Optional list of detailed errors
   final List<StarShipItError>? errors;
-
-  /// Creates a GetFilteredAddressesResponse from JSON
-  factory GetFilteredAddressesResponse.fromJson(Map<String, dynamic> json) =>
-      _$GetFilteredAddressesResponseFromJson(json);
 
   /// Converts the GetFilteredAddressesResponse to JSON
   Map<String, dynamic> toJson() => _$GetFilteredAddressesResponseToJson(this);
@@ -78,6 +78,10 @@ class AddressBookAddress {
     required this.email,
   });
 
+  /// Creates an AddressBookAddress from JSON
+  factory AddressBookAddress.fromJson(Map<String, dynamic> json) =>
+      _$AddressBookAddressFromJson(json);
+
   /// The unique numeric identifier for the address
   final int id;
 
@@ -117,10 +121,6 @@ class AddressBookAddress {
 
   /// Email address for this contact
   final String email;
-
-  /// Creates an AddressBookAddress from JSON
-  factory AddressBookAddress.fromJson(Map<String, dynamic> json) =>
-      _$AddressBookAddressFromJson(json);
 
   /// Converts the AddressBookAddress to JSON
   Map<String, dynamic> toJson() => _$AddressBookAddressToJson(this);

@@ -36,6 +36,10 @@ class DeliveryServicesRequest {
     this.insuranceValue = 0.0,
   });
 
+  /// Creates a DeliveryServicesRequest from JSON
+  factory DeliveryServicesRequest.fromJson(Map<String, dynamic> json) =>
+      _$DeliveryServicesRequestFromJson(json);
+
   /// Optional order ID to refresh rate for
   @JsonKey(name: 'order_id')
   final int? orderId;
@@ -81,10 +85,6 @@ class DeliveryServicesRequest {
   @JsonKey(name: 'insurance_value')
   final double insuranceValue;
 
-  /// Creates a DeliveryServicesRequest from JSON
-  factory DeliveryServicesRequest.fromJson(Map<String, dynamic> json) =>
-      _$DeliveryServicesRequestFromJson(json);
-
   /// Converts the DeliveryServicesRequest to JSON
   Map<String, dynamic> toJson() => _$DeliveryServicesRequestToJson(this);
 }
@@ -111,6 +111,10 @@ class DeliveryServicesSender {
     required this.countryCode,
   });
 
+  /// Creates a DeliveryServicesSender from JSON
+  factory DeliveryServicesSender.fromJson(Map<String, dynamic> json) =>
+      _$DeliveryServicesSenderFromJson(json);
+
   /// Street number and name of the sender address
   final String street;
 
@@ -130,10 +134,6 @@ class DeliveryServicesSender {
   /// The country code of the sender address
   @JsonKey(name: 'country_code')
   final String countryCode;
-
-  /// Creates a DeliveryServicesSender from JSON
-  factory DeliveryServicesSender.fromJson(Map<String, dynamic> json) =>
-      _$DeliveryServicesSenderFromJson(json);
 
   /// Converts the DeliveryServicesSender to JSON
   Map<String, dynamic> toJson() => _$DeliveryServicesSenderToJson(this);
@@ -161,6 +161,10 @@ class DeliveryServicesDestination {
     required this.countryCode,
   });
 
+  /// Creates a DeliveryServicesDestination from JSON
+  factory DeliveryServicesDestination.fromJson(Map<String, dynamic> json) =>
+      _$DeliveryServicesDestinationFromJson(json);
+
   /// Street number and name of the delivery address
   final String street;
 
@@ -180,10 +184,6 @@ class DeliveryServicesDestination {
   /// The country code of the delivery address
   @JsonKey(name: 'country_code')
   final String countryCode;
-
-  /// Creates a DeliveryServicesDestination from JSON
-  factory DeliveryServicesDestination.fromJson(Map<String, dynamic> json) =>
-      _$DeliveryServicesDestinationFromJson(json);
 
   /// Converts the DeliveryServicesDestination to JSON
   Map<String, dynamic> toJson() => _$DeliveryServicesDestinationToJson(this);
@@ -207,6 +207,10 @@ class DeliveryServicesPackage {
     this.length,
   });
 
+  /// Creates a DeliveryServicesPackage from JSON
+  factory DeliveryServicesPackage.fromJson(Map<String, dynamic> json) =>
+      _$DeliveryServicesPackageFromJson(json);
+
   /// Physical weight of the parcel in kilograms (kg)
   final double weight;
 
@@ -218,10 +222,6 @@ class DeliveryServicesPackage {
 
   /// Length of the parcel in meters (m)
   final double? length;
-
-  /// Creates a DeliveryServicesPackage from JSON
-  factory DeliveryServicesPackage.fromJson(Map<String, dynamic> json) =>
-      _$DeliveryServicesPackageFromJson(json);
 
   /// Converts the DeliveryServicesPackage to JSON
   Map<String, dynamic> toJson() => _$DeliveryServicesPackageToJson(this);

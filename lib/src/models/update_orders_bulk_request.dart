@@ -15,12 +15,12 @@ class UpdateOrdersBulkRequest {
     required this.orders,
   });
 
-  /// The list of orders to update
-  final List<UpdateOrderRequest> orders;
-
   /// Creates an UpdateOrdersBulkRequest from JSON
   factory UpdateOrdersBulkRequest.fromJson(Map<String, dynamic> json) =>
       _$UpdateOrdersBulkRequestFromJson(json);
+
+  /// The list of orders to update
+  final List<UpdateOrderRequest> orders;
 
   /// Converts the UpdateOrdersBulkRequest to JSON
   Map<String, dynamic> toJson() => _$UpdateOrdersBulkRequestToJson(this);

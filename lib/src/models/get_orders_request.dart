@@ -168,6 +168,10 @@ class GetOrdersRequest {
           'page_size must be between 1 and 500',
         );
 
+  /// Creates a GetOrdersRequest from JSON
+  factory GetOrdersRequest.fromJson(Map<String, dynamic> json) =>
+      _$GetOrdersRequestFromJson(json);
+
   /// The unique numeric identifier for the order
   @JsonKey(name: 'order_id')
   final int? orderId;
@@ -200,10 +204,6 @@ class GetOrdersRequest {
   /// The number of results to return per page (default: 500, maximum: 500)
   @JsonKey(name: 'page_size')
   final int? pageSize;
-
-  /// Creates a GetOrdersRequest from JSON
-  factory GetOrdersRequest.fromJson(Map<String, dynamic> json) =>
-      _$GetOrdersRequestFromJson(json);
 
   /// Converts the GetOrdersRequest to JSON
   Map<String, dynamic> toJson() => _$GetOrdersRequestToJson(this);

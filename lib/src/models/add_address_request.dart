@@ -15,12 +15,12 @@ class AddAddressRequest {
     required this.address,
   });
 
-  /// Address details for the new contact
-  final AddressDetail address;
-
   /// Creates an AddAddressRequest from JSON
   factory AddAddressRequest.fromJson(Map<String, dynamic> json) =>
       _$AddAddressRequestFromJson(json);
+
+  /// Address details for the new contact
+  final AddressDetail address;
 
   /// Converts the AddAddressRequest to JSON
   Map<String, dynamic> toJson() => _$AddAddressRequestToJson(this);

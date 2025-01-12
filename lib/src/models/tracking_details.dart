@@ -6,6 +6,24 @@ part 'tracking_details.g.dart';
 /// Model for tracking details of a shipped order
 @JsonSerializable()
 class TrackingDetails {
+
+  /// Creates a new [TrackingDetails] instance
+  const TrackingDetails({
+    required this.orderNumber,
+    required this.orderStatus,
+    required this.carrierName,
+    required this.carrierService,
+    required this.trackingNumber,
+    required this.trackingUrl,
+    required this.shipmentDate,
+    required this.trackingStatus,
+    required this.lastUpdatedDate,
+    required this.trackingEvents,
+  });
+
+  /// Creates a [TrackingDetails] from JSON data
+  factory TrackingDetails.fromJson(Map<String, dynamic> json) =>
+      _$TrackingDetailsFromJson(json);
   /// The identifier of the order pulled from source e-Commerce platform
   final String orderNumber;
 
@@ -35,24 +53,6 @@ class TrackingDetails {
 
   /// List of detailed tracking events from the carrier
   final List<TrackingEvent> trackingEvents;
-
-  /// Creates a new [TrackingDetails] instance
-  const TrackingDetails({
-    required this.orderNumber,
-    required this.orderStatus,
-    required this.carrierName,
-    required this.carrierService,
-    required this.trackingNumber,
-    required this.trackingUrl,
-    required this.shipmentDate,
-    required this.trackingStatus,
-    required this.lastUpdatedDate,
-    required this.trackingEvents,
-  });
-
-  /// Creates a [TrackingDetails] from JSON data
-  factory TrackingDetails.fromJson(Map<String, dynamic> json) =>
-      _$TrackingDetailsFromJson(json);
 
   /// Converts this [TrackingDetails] into JSON data
   Map<String, dynamic> toJson() => _$TrackingDetailsToJson(this);

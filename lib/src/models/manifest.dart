@@ -30,6 +30,10 @@ class Manifest {
     required this.carrierId,
   });
 
+  /// Creates a Manifest from JSON
+  factory Manifest.fromJson(Map<String, dynamic> json) =>
+      _$ManifestFromJson(json);
+
   /// The unique identifier for the manifest
   final int id;
 
@@ -61,10 +65,6 @@ class Manifest {
   /// Unique id of the carrier for this manifest
   @JsonKey(name: 'carrierId')
   final int carrierId;
-
-  /// Creates a Manifest from JSON
-  factory Manifest.fromJson(Map<String, dynamic> json) =>
-      _$ManifestFromJson(json);
 
   /// Converts the Manifest to JSON
   Map<String, dynamic> toJson() => _$ManifestToJson(this);

@@ -17,15 +17,15 @@ class DeleteOrderResponse {
     this.errors,
   });
 
+  /// Creates a DeleteOrderResponse from JSON
+  factory DeleteOrderResponse.fromJson(Map<String, dynamic> json) =>
+      _$DeleteOrderResponseFromJson(json);
+
   /// Whether the request was successfully submitted
   final bool success;
 
   /// List of errors if the request failed
   final List<StarShipItError>? errors;
-
-  /// Creates a DeleteOrderResponse from JSON
-  factory DeleteOrderResponse.fromJson(Map<String, dynamic> json) =>
-      _$DeleteOrderResponseFromJson(json);
 
   /// Converts the DeleteOrderResponse to JSON
   Map<String, dynamic> toJson() => _$DeleteOrderResponseToJson(this);

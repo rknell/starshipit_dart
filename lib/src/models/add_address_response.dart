@@ -21,6 +21,10 @@ class AddAddressResponse {
     this.errors,
   });
 
+  /// Creates an AddAddressResponse from JSON
+  factory AddAddressResponse.fromJson(Map<String, dynamic> json) =>
+      _$AddAddressResponseFromJson(json);
+
   /// Unique identifier for the record that has just been added
   final int id;
 
@@ -32,10 +36,6 @@ class AddAddressResponse {
 
   /// Optional list of detailed errors
   final List<StarShipItError>? errors;
-
-  /// Creates an AddAddressResponse from JSON
-  factory AddAddressResponse.fromJson(Map<String, dynamic> json) =>
-      _$AddAddressResponseFromJson(json);
 
   /// Converts the AddAddressResponse to JSON
   Map<String, dynamic> toJson() => _$AddAddressResponseToJson(this);

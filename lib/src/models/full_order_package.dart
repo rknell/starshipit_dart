@@ -45,6 +45,10 @@ class FullOrderPackage {
     required this.contents,
   });
 
+  /// Creates a FullOrderPackage from JSON
+  factory FullOrderPackage.fromJson(Map<String, dynamic> json) =>
+      _$FullOrderPackageFromJson(json);
+
   /// The unique numeric identifier for the package
   @JsonKey(name: 'package_id')
   final int packageId;
@@ -102,10 +106,6 @@ class FullOrderPackage {
 
   /// The shipment contents that appears on the label or invoice
   final String contents;
-
-  /// Creates a FullOrderPackage from JSON
-  factory FullOrderPackage.fromJson(Map<String, dynamic> json) =>
-      _$FullOrderPackageFromJson(json);
 
   /// Converts the FullOrderPackage to JSON
   Map<String, dynamic> toJson() => _$FullOrderPackageToJson(this);

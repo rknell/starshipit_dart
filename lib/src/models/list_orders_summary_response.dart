@@ -34,6 +34,10 @@ class OrderSummary {
     required this.shippedDate,
   });
 
+  /// Creates an OrderSummary from JSON
+  factory OrderSummary.fromJson(Map<String, dynamic> json) =>
+      _$OrderSummaryFromJson(json);
+
   /// The unique numeric identifier for the order
   @JsonKey(name: 'order_id')
   final int orderId;
@@ -116,10 +120,6 @@ class OrderSummary {
   @JsonKey(name: 'shipped_date')
   final DateTime shippedDate;
 
-  /// Creates an OrderSummary from JSON
-  factory OrderSummary.fromJson(Map<String, dynamic> json) =>
-      _$OrderSummaryFromJson(json);
-
   /// Converts the OrderSummary to JSON
   Map<String, dynamic> toJson() => _$OrderSummaryToJson(this);
 }
@@ -138,6 +138,10 @@ class OrderCounts {
     required this.unprintedInvalidaddressCount,
     required this.returnCount,
   });
+
+  /// Creates an OrderCounts from JSON
+  factory OrderCounts.fromJson(Map<String, dynamic> json) =>
+      _$OrderCountsFromJson(json);
 
   /// Number of unprinted orders
   @JsonKey(name: 'unprinted_count')
@@ -171,10 +175,6 @@ class OrderCounts {
   @JsonKey(name: 'return_count')
   final int returnCount;
 
-  /// Creates an OrderCounts from JSON
-  factory OrderCounts.fromJson(Map<String, dynamic> json) =>
-      _$OrderCountsFromJson(json);
-
   /// Converts the OrderCounts to JSON
   Map<String, dynamic> toJson() => _$OrderCountsToJson(this);
 }
@@ -190,6 +190,10 @@ class ListOrdersSummaryResponse {
     this.errors,
   });
 
+  /// Creates a ListOrdersSummaryResponse from JSON
+  factory ListOrdersSummaryResponse.fromJson(Map<String, dynamic> json) =>
+      _$ListOrdersSummaryResponseFromJson(json);
+
   /// List of order summaries
   final List<OrderSummary> orders;
 
@@ -202,10 +206,6 @@ class ListOrdersSummaryResponse {
 
   /// List of errors if the request failed
   final List<StarShipItError>? errors;
-
-  /// Creates a ListOrdersSummaryResponse from JSON
-  factory ListOrdersSummaryResponse.fromJson(Map<String, dynamic> json) =>
-      _$ListOrdersSummaryResponseFromJson(json);
 
   /// Converts the ListOrdersSummaryResponse to JSON
   Map<String, dynamic> toJson() => _$ListOrdersSummaryResponseToJson(this);

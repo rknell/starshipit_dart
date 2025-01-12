@@ -18,6 +18,10 @@ class ManifestByCarrierResponse {
     this.errors,
   });
 
+  /// Creates a ManifestByCarrierResponse from JSON
+  factory ManifestByCarrierResponse.fromJson(Map<String, dynamic> json) =>
+      _$ManifestByCarrierResponseFromJson(json);
+
   /// The count of shipments that have been manifested as a result of this request
   @JsonKey(name: 'records_manifested')
   final int recordsManifested;
@@ -27,10 +31,6 @@ class ManifestByCarrierResponse {
 
   /// Optional list of detailed errors
   final List<StarShipItError>? errors;
-
-  /// Creates a ManifestByCarrierResponse from JSON
-  factory ManifestByCarrierResponse.fromJson(Map<String, dynamic> json) =>
-      _$ManifestByCarrierResponseFromJson(json);
 
   /// Converts the ManifestByCarrierResponse to JSON
   Map<String, dynamic> toJson() => _$ManifestByCarrierResponseToJson(this);

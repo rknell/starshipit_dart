@@ -21,6 +21,10 @@ class CreateOrderItem {
         assert(countryOfOrigin == null || countryOfOrigin.length <= 50,
             'country_of_origin must not exceed 50 characters');
 
+  /// Creates a CreateOrderItem from JSON
+  factory CreateOrderItem.fromJson(Map<String, dynamic> json) =>
+      _$CreateOrderItemFromJson(json);
+
   /// Product name or description
   final String? description;
 
@@ -43,10 +47,6 @@ class CreateOrderItem {
 
   /// Unit price of the product
   final double? value;
-
-  /// Creates a CreateOrderItem from JSON
-  factory CreateOrderItem.fromJson(Map<String, dynamic> json) =>
-      _$CreateOrderItemFromJson(json);
 
   /// Converts the CreateOrderItem to JSON
   Map<String, dynamic> toJson() => _$CreateOrderItemToJson(this);

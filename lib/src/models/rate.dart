@@ -6,6 +6,19 @@ part 'rate.g.dart';
 /// Model for a shipping rate
 @JsonSerializable(explicitToJson: true)
 class Rate {
+
+  /// Creates a new [Rate] instance
+  const Rate({
+    required this.carrier,
+    required this.serviceCode,
+    required this.serviceName,
+    required this.cost,
+    required this.currency,
+    this.deliveryTime,
+  });
+
+  /// Creates a [Rate] from JSON map
+  factory Rate.fromJson(Map<String, dynamic> json) => _$RateFromJson(json);
   /// The carrier offering this rate
   @JsonKey(
     fromJson: _carrierFromJson,
@@ -30,19 +43,6 @@ class Rate {
   /// Estimated delivery time in days
   @JsonKey(name: 'delivery_time')
   final int? deliveryTime;
-
-  /// Creates a new [Rate] instance
-  const Rate({
-    required this.carrier,
-    required this.serviceCode,
-    required this.serviceName,
-    required this.cost,
-    required this.currency,
-    this.deliveryTime,
-  });
-
-  /// Creates a [Rate] from JSON map
-  factory Rate.fromJson(Map<String, dynamic> json) => _$RateFromJson(json);
 
   /// Converts this [Rate] to a JSON map
   Map<String, dynamic> toJson() => _$RateToJson(this);

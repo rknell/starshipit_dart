@@ -19,6 +19,10 @@ class UpdateAddressResponse {
     this.errors,
   });
 
+  /// Creates an UpdateAddressResponse from JSON
+  factory UpdateAddressResponse.fromJson(Map<String, dynamic> json) =>
+      _$UpdateAddressResponseFromJson(json);
+
   /// The updated address record
   final AddressDetail address;
 
@@ -27,10 +31,6 @@ class UpdateAddressResponse {
 
   /// Optional list of detailed errors
   final List<StarShipItError>? errors;
-
-  /// Creates an UpdateAddressResponse from JSON
-  factory UpdateAddressResponse.fromJson(Map<String, dynamic> json) =>
-      _$UpdateAddressResponseFromJson(json);
 
   /// Converts the UpdateAddressResponse to JSON
   Map<String, dynamic> toJson() => _$UpdateAddressResponseToJson(this);

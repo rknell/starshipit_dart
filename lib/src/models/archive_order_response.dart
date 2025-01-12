@@ -17,15 +17,15 @@ class ArchiveOrderResponse {
     this.errors,
   });
 
+  /// Creates an ArchiveOrderResponse from JSON
+  factory ArchiveOrderResponse.fromJson(Map<String, dynamic> json) =>
+      _$ArchiveOrderResponseFromJson(json);
+
   /// Whether the request was successfully submitted
   final bool success;
 
   /// List of errors if the request failed
   final List<StarShipItError>? errors;
-
-  /// Creates an ArchiveOrderResponse from JSON
-  factory ArchiveOrderResponse.fromJson(Map<String, dynamic> json) =>
-      _$ArchiveOrderResponseFromJson(json);
 
   /// Converts the ArchiveOrderResponse to JSON
   Map<String, dynamic> toJson() => _$ArchiveOrderResponseToJson(this);

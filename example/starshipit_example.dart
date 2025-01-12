@@ -29,7 +29,7 @@ void main() async {
                 suburb: 'Test Suburb',
                 country: 'Test Country')));
 
-    var createOrderResponse = await client.orders.create(request);
+    final createOrderResponse = await client.orders.create(request);
     print(createOrderResponse.order);
 
     // Example 1: List all unshipped orders from the last 24 hours (default)

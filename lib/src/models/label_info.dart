@@ -18,6 +18,10 @@ class LabelInfo {
     required this.labelBase64String,
   });
 
+  /// Creates a LabelInfo from JSON
+  factory LabelInfo.fromJson(Map<String, dynamic> json) =>
+      _$LabelInfoFromJson(json);
+
   /// The type of the label
   @JsonKey(name: 'label_type')
   final String labelType;
@@ -29,10 +33,6 @@ class LabelInfo {
   /// The base64 encoded string of the label
   @JsonKey(name: 'label_base64_string')
   final String labelBase64String;
-
-  /// Creates a LabelInfo from JSON
-  factory LabelInfo.fromJson(Map<String, dynamic> json) =>
-      _$LabelInfoFromJson(json);
 
   /// Converts the LabelInfo to JSON
   Map<String, dynamic> toJson() => _$LabelInfoToJson(this);

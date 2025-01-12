@@ -6,6 +6,20 @@ part 'webhook_data.g.dart';
 /// Represents the data received from a StarShipIt webhook
 @JsonSerializable(explicitToJson: true)
 class WebhookData {
+
+  const WebhookData({
+    required this.orderNumber,
+    required this.carrierName,
+    required this.carrierService,
+    required this.shipmentDate,
+    required this.trackingNumber,
+    required this.trackingStatus,
+    required this.lastUpdatedDate,
+  });
+
+  /// Creates a [WebhookData] instance from a JSON map
+  factory WebhookData.fromJson(Map<String, dynamic> json) =>
+      _$WebhookDataFromJson(json);
   /// The identifier of the order pulled from source eCommerce platform
   @JsonKey(name: 'order_number')
   final String orderNumber;
@@ -37,20 +51,6 @@ class WebhookData {
   /// Last tracking updated date from the courier
   @JsonKey(name: 'last_updated_date')
   final DateTime lastUpdatedDate;
-
-  const WebhookData({
-    required this.orderNumber,
-    required this.carrierName,
-    required this.carrierService,
-    required this.shipmentDate,
-    required this.trackingNumber,
-    required this.trackingStatus,
-    required this.lastUpdatedDate,
-  });
-
-  /// Creates a [WebhookData] instance from a JSON map
-  factory WebhookData.fromJson(Map<String, dynamic> json) =>
-      _$WebhookDataFromJson(json);
 
   /// Converts this [WebhookData] instance to a JSON map
   Map<String, dynamic> toJson() => _$WebhookDataToJson(this);

@@ -11,15 +11,15 @@ class StarShipItError {
     required this.details,
   });
 
+  /// Creates a StarShipItError from JSON
+  factory StarShipItError.fromJson(Map<String, dynamic> json) =>
+      _$StarShipItErrorFromJson(json);
+
   /// The error message
   final String message;
 
   /// Detailed exception information
   final String details;
-
-  /// Creates a StarShipItError from JSON
-  factory StarShipItError.fromJson(Map<String, dynamic> json) =>
-      _$StarShipItErrorFromJson(json);
 
   /// Converts the StarShipItError to JSON
   Map<String, dynamic> toJson() => _$StarShipItErrorToJson(this);

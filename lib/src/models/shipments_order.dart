@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'carrier.dart';
 
 part 'shipments_order.g.dart';
 
@@ -29,6 +28,10 @@ class ShipmentsOrder {
     required this.country,
   });
 
+  /// Creates a ShipmentsOrder from JSON
+  factory ShipmentsOrder.fromJson(Map<String, dynamic> json) =>
+      _$ShipmentsOrderFromJson(json);
+
   /// The unique numeric identifier for the order
   @JsonKey(name: 'order_id')
   final int orderId;
@@ -57,10 +60,6 @@ class ShipmentsOrder {
 
   /// The country name of delivery address
   final String country;
-
-  /// Creates a ShipmentsOrder from JSON
-  factory ShipmentsOrder.fromJson(Map<String, dynamic> json) =>
-      _$ShipmentsOrderFromJson(json);
 
   /// Converts the ShipmentsOrder to JSON
   Map<String, dynamic> toJson() => _$ShipmentsOrderToJson(this);

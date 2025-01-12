@@ -15,12 +15,12 @@ class CreateOrdersRequest {
     required this.order,
   });
 
-  /// The order details
-  final CreateOrderModel order;
-
   /// Creates a CreateOrdersRequest from JSON
   factory CreateOrdersRequest.fromJson(Map<String, dynamic> json) =>
       _$CreateOrdersRequestFromJson(json);
+
+  /// The order details
+  final CreateOrderModel order;
 
   /// Converts the CreateOrdersRequest to JSON
   Map<String, dynamic> toJson() => _$CreateOrdersRequestToJson(this);

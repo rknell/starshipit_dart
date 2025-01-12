@@ -6,6 +6,22 @@ part 'print_label_response.g.dart';
 /// Response model for printing a shipping label
 @JsonSerializable()
 class PrintLabelResponse {
+
+  /// Creates a new [PrintLabelResponse] instance
+  const PrintLabelResponse({
+    required this.orderId,
+    required this.orderNumber,
+    required this.carrierName,
+    required this.trackingNumbers,
+    required this.labels,
+    required this.labelTypes,
+    required this.success,
+    this.errors,
+  });
+
+  /// Creates a [PrintLabelResponse] from JSON data
+  factory PrintLabelResponse.fromJson(Map<String, dynamic> json) =>
+      _$PrintLabelResponseFromJson(json);
   /// The unique numeric identifier for the order
   final int orderId;
 
@@ -29,22 +45,6 @@ class PrintLabelResponse {
 
   /// List of detailed errors if the request was not successful
   final List<StarShipItError>? errors;
-
-  /// Creates a new [PrintLabelResponse] instance
-  const PrintLabelResponse({
-    required this.orderId,
-    required this.orderNumber,
-    required this.carrierName,
-    required this.trackingNumbers,
-    required this.labels,
-    required this.labelTypes,
-    required this.success,
-    this.errors,
-  });
-
-  /// Creates a [PrintLabelResponse] from JSON data
-  factory PrintLabelResponse.fromJson(Map<String, dynamic> json) =>
-      _$PrintLabelResponseFromJson(json);
 
   /// Converts this [PrintLabelResponse] into JSON data
   Map<String, dynamic> toJson() => _$PrintLabelResponseToJson(this);

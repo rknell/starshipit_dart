@@ -13,6 +13,5 @@ class StarShipItException implements Exception {
 /// Thrown when authentication fails
 class StarShipItAuthException extends StarShipItException {
   /// Creates a new authentication exception
-  StarShipItAuthException([String message = 'Authentication failed'])
-    : super(message);
+  StarShipItAuthException([super.message = 'Authentication failed']);
 }

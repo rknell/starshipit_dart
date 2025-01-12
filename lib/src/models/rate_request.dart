@@ -20,6 +20,10 @@ class RateRequest {
     this.currency,
   });
 
+  /// Creates a RateRequest from JSON
+  factory RateRequest.fromJson(Map<String, dynamic> json) =>
+      _$RateRequestFromJson(json);
+
   /// Optional sender address details. If not provided, pickup address details from Settings are used
   final RateSenderAddress? sender;
 
@@ -31,10 +35,6 @@ class RateRequest {
 
   /// Optional currency code for the order value (max length: 3) e.g. AUD
   final String? currency;
-
-  /// Creates a RateRequest from JSON
-  factory RateRequest.fromJson(Map<String, dynamic> json) =>
-      _$RateRequestFromJson(json);
 
   /// Converts the RateRequest to JSON
   Map<String, dynamic> toJson() => _$RateRequestToJson(this);
@@ -62,6 +62,10 @@ class RateSenderAddress {
     required this.countryCode,
   });
 
+  /// Creates a RateSenderAddress from JSON
+  factory RateSenderAddress.fromJson(Map<String, dynamic> json) =>
+      _$RateSenderAddressFromJson(json);
+
   /// Street number and name of the sender address
   final String street;
 
@@ -81,10 +85,6 @@ class RateSenderAddress {
   /// The country code of the sender address
   @JsonKey(name: 'country_code')
   final String countryCode;
-
-  /// Creates a RateSenderAddress from JSON
-  factory RateSenderAddress.fromJson(Map<String, dynamic> json) =>
-      _$RateSenderAddressFromJson(json);
 
   /// Converts the RateSenderAddress to JSON
   Map<String, dynamic> toJson() => _$RateSenderAddressToJson(this);
@@ -112,6 +112,10 @@ class RateDestinationAddress {
     required this.countryCode,
   });
 
+  /// Creates a RateDestinationAddress from JSON
+  factory RateDestinationAddress.fromJson(Map<String, dynamic> json) =>
+      _$RateDestinationAddressFromJson(json);
+
   /// Street number and name of the delivery address
   final String street;
 
@@ -131,10 +135,6 @@ class RateDestinationAddress {
   /// The country code of the delivery address
   @JsonKey(name: 'country_code')
   final String countryCode;
-
-  /// Creates a RateDestinationAddress from JSON
-  factory RateDestinationAddress.fromJson(Map<String, dynamic> json) =>
-      _$RateDestinationAddressFromJson(json);
 
   /// Converts the RateDestinationAddress to JSON
   Map<String, dynamic> toJson() => _$RateDestinationAddressToJson(this);
@@ -158,6 +158,10 @@ class RatePackage {
     this.length,
   });
 
+  /// Creates a RatePackage from JSON
+  factory RatePackage.fromJson(Map<String, dynamic> json) =>
+      _$RatePackageFromJson(json);
+
   /// Physical weight of the parcel in kilograms (kg)
   final double weight;
 
@@ -169,10 +173,6 @@ class RatePackage {
 
   /// Length of the parcel in meters (m)
   final double? length;
-
-  /// Creates a RatePackage from JSON
-  factory RatePackage.fromJson(Map<String, dynamic> json) =>
-      _$RatePackageFromJson(json);
 
   /// Converts the RatePackage to JSON
   Map<String, dynamic> toJson() => _$RatePackageToJson(this);

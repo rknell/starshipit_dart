@@ -16,6 +16,10 @@ class GetManifestsRequest {
     this.limit = 50,
   }) : assert(limit <= 250, 'Maximum limit is 250');
 
+  /// Creates a GetManifestsRequest from JSON
+  factory GetManifestsRequest.fromJson(Map<String, dynamic> json) =>
+      _$GetManifestsRequestFromJson(json);
+
   /// Page to show (default: 1)
   final int page;
 
@@ -29,10 +33,6 @@ class GetManifestsRequest {
       'limit': limit.toString(),
     };
   }
-
-  /// Creates a GetManifestsRequest from JSON
-  factory GetManifestsRequest.fromJson(Map<String, dynamic> json) =>
-      _$GetManifestsRequestFromJson(json);
 
   /// Converts the GetManifestsRequest to JSON
   Map<String, dynamic> toJson() => _$GetManifestsRequestToJson(this);

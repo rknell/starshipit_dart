@@ -19,6 +19,10 @@ class RateResponse {
     this.errors,
   });
 
+  /// Creates a RateResponse from JSON
+  factory RateResponse.fromJson(Map<String, dynamic> json) =>
+      _$RateResponseFromJson(json);
+
   /// List of available shipping rates
   final List<GetRatesRate> rates;
 
@@ -27,10 +31,6 @@ class RateResponse {
 
   /// Optional list of detailed errors
   final List<StarShipItError>? errors;
-
-  /// Creates a RateResponse from JSON
-  factory RateResponse.fromJson(Map<String, dynamic> json) =>
-      _$RateResponseFromJson(json);
 
   /// Converts the RateResponse to JSON
   Map<String, dynamic> toJson() => _$RateResponseToJson(this);
@@ -52,6 +52,10 @@ class GetRatesRate {
     required this.totalPrice,
   });
 
+  /// Creates a GetRatesRate from JSON
+  factory GetRatesRate.fromJson(Map<String, dynamic> json) =>
+      _$GetRatesRateFromJson(json);
+
   /// Description of the carrier service
   @JsonKey(name: 'service_name')
   final String serviceName;
@@ -63,10 +67,6 @@ class GetRatesRate {
   /// Price of service
   @JsonKey(name: 'total_price')
   final double totalPrice;
-
-  /// Creates a GetRatesRate from JSON
-  factory GetRatesRate.fromJson(Map<String, dynamic> json) =>
-      _$GetRatesRateFromJson(json);
 
   /// Converts the GetRatesRate to JSON
   Map<String, dynamic> toJson() => _$GetRatesRateToJson(this);

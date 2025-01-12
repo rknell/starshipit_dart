@@ -21,6 +21,10 @@ class ManifestShipmentsResponse {
     this.errors,
   });
 
+  /// Creates a ManifestShipmentsResponse from JSON
+  factory ManifestShipmentsResponse.fromJson(Map<String, dynamic> json) =>
+      _$ManifestShipmentsResponseFromJson(json);
+
   /// The pdf of the manifest file created
   final String pdf;
 
@@ -33,10 +37,6 @@ class ManifestShipmentsResponse {
 
   /// Optional list of detailed errors
   final List<StarShipItError>? errors;
-
-  /// Creates a ManifestShipmentsResponse from JSON
-  factory ManifestShipmentsResponse.fromJson(Map<String, dynamic> json) =>
-      _$ManifestShipmentsResponseFromJson(json);
 
   /// Converts the ManifestShipmentsResponse to JSON
   Map<String, dynamic> toJson() => _$ManifestShipmentsResponseToJson(this);

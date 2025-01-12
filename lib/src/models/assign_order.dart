@@ -5,17 +5,6 @@ part 'assign_order.g.dart';
 /// Model for assigning an order from one account to another
 @JsonSerializable()
 class AssignOrder {
-  /// The unique numeric identifier for the order (optional)
-  final int? orderId;
-
-  /// The identifier of the order pulled from source e-Commerce platform (optional)
-  final String? orderNumber;
-
-  /// The api key of the account that the order currently resides in
-  final String currentApiKey;
-
-  /// The api key of the account that you wish to assign the order to
-  final String newApiKey;
 
   /// Creates a new [AssignOrder] instance
   const AssignOrder({
@@ -31,6 +20,17 @@ class AssignOrder {
   /// Creates an [AssignOrder] from JSON data
   factory AssignOrder.fromJson(Map<String, dynamic> json) =>
       _$AssignOrderFromJson(json);
+  /// The unique numeric identifier for the order (optional)
+  final int? orderId;
+
+  /// The identifier of the order pulled from source e-Commerce platform (optional)
+  final String? orderNumber;
+
+  /// The api key of the account that the order currently resides in
+  final String currentApiKey;
+
+  /// The api key of the account that you wish to assign the order to
+  final String newApiKey;
 
   /// Converts this [AssignOrder] into JSON data
   Map<String, dynamic> toJson() => _$AssignOrderToJson(this);

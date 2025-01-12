@@ -1,4 +1,3 @@
-import 'package:http/http.dart' as http;
 import 'package:starshipit/src/api/address_book_api.dart';
 import 'package:starshipit/src/api/manifests_api.dart';
 import 'package:starshipit/src/api/starshipit_http_client.dart';

@@ -27,6 +27,10 @@ class ListUnshippedOrdersResponse {
           'Either orders or orderIds must be provided',
         );
 
+  /// Creates a ListUnshippedOrdersResponse from JSON
+  factory ListUnshippedOrdersResponse.fromJson(Map<String, dynamic> json) =>
+      _$ListUnshippedOrdersResponseFromJson(json);
+
   /// List of unshipped orders details (Full Order Model)
   /// Only present when ids_only is false
   final List<FullOrder>? orders;
@@ -46,10 +50,6 @@ class ListUnshippedOrdersResponse {
   /// List of detailed errors (Error Model)
   /// Only present if the request resulted in an error
   final List<StarShipItError>? errors;
-
-  /// Creates a ListUnshippedOrdersResponse from JSON
-  factory ListUnshippedOrdersResponse.fromJson(Map<String, dynamic> json) =>
-      _$ListUnshippedOrdersResponseFromJson(json);
 
   /// Converts the ListUnshippedOrdersResponse to JSON
   Map<String, dynamic> toJson() => _$ListUnshippedOrdersResponseToJson(this);

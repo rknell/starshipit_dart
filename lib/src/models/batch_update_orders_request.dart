@@ -18,6 +18,10 @@ class BatchUpdateOrdersRequest {
     required this.carrierId,
   });
 
+  /// Creates a BatchUpdateOrdersRequest from JSON
+  factory BatchUpdateOrdersRequest.fromJson(Map<String, dynamic> json) =>
+      _$BatchUpdateOrdersRequestFromJson(json);
+
   /// List of order IDs to be updated
   @JsonKey(name: 'order_ids')
   final List<int> orderIds;
@@ -29,10 +33,6 @@ class BatchUpdateOrdersRequest {
   /// The ID of the carrier to be used in the order
   @JsonKey(name: 'carrier_id')
   final String carrierId;
-
-  /// Creates a BatchUpdateOrdersRequest from JSON
-  factory BatchUpdateOrdersRequest.fromJson(Map<String, dynamic> json) =>
-      _$BatchUpdateOrdersRequestFromJson(json);
 
   /// Converts the BatchUpdateOrdersRequest to JSON
   Map<String, dynamic> toJson() => _$BatchUpdateOrdersRequestToJson(this);

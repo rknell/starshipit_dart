@@ -17,15 +17,15 @@ class DeleteAddressResponse {
     this.errors,
   });
 
+  /// Creates a DeleteAddressResponse from JSON
+  factory DeleteAddressResponse.fromJson(Map<String, dynamic> json) =>
+      _$DeleteAddressResponseFromJson(json);
+
   /// Whether the request was successfully submitted
   final bool success;
 
   /// Optional list of detailed errors
   final List<StarShipItError>? errors;
-
-  /// Creates a DeleteAddressResponse from JSON
-  factory DeleteAddressResponse.fromJson(Map<String, dynamic> json) =>
-      _$DeleteAddressResponseFromJson(json);
 
   /// Converts the DeleteAddressResponse to JSON
   Map<String, dynamic> toJson() => _$DeleteAddressResponseToJson(this);

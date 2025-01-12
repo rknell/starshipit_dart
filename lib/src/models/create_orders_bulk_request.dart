@@ -18,12 +18,12 @@ class CreateOrdersBulkRequest {
           'Maximum orders per API request: 50',
         );
 
-  /// The list of orders to create
-  final List<CreateOrderModel> orders;
-
   /// Creates a CreateOrdersBulkRequest from JSON
   factory CreateOrdersBulkRequest.fromJson(Map<String, dynamic> json) =>
       _$CreateOrdersBulkRequestFromJson(json);
+
+  /// The list of orders to create
+  final List<CreateOrderModel> orders;
 
   /// Converts the CreateOrdersBulkRequest to JSON
   Map<String, dynamic> toJson() => _$CreateOrdersBulkRequestToJson(this);

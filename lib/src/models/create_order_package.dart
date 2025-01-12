@@ -13,6 +13,10 @@ class CreateOrderPackage {
     this.length,
   });
 
+  /// Creates a CreateOrderPackage from JSON
+  factory CreateOrderPackage.fromJson(Map<String, dynamic> json) =>
+      _$CreateOrderPackageFromJson(json);
+
   /// Physical weight of the parcel in kilograms (kg)
   final double? weight;
 
@@ -24,10 +28,6 @@ class CreateOrderPackage {
 
   /// Length of the parcel in meters (m)
   final double? length;
-
-  /// Creates a CreateOrderPackage from JSON
-  factory CreateOrderPackage.fromJson(Map<String, dynamic> json) =>
-      _$CreateOrderPackageFromJson(json);
 
   /// Converts the CreateOrderPackage to JSON
   Map<String, dynamic> toJson() => _$CreateOrderPackageToJson(this);

@@ -5,6 +5,24 @@ part 'mergeable_order.g.dart';
 /// Represents a single order that can be merged with others
 @JsonSerializable()
 class MergeableOrder {
+
+  /// Creates a new [MergeableOrder] instance
+  const MergeableOrder({
+    required this.orderId,
+    required this.orderNumber,
+    required this.orderDate,
+    required this.street,
+    this.suburb,
+    required this.city,
+    required this.postcode,
+    this.state,
+    required this.country,
+    required this.contact,
+  });
+
+  /// Creates a [MergeableOrder] from JSON data
+  factory MergeableOrder.fromJson(Map<String, dynamic> json) =>
+      _$MergeableOrderFromJson(json);
   /// The Starshipit order ID
   final int orderId;
 
@@ -34,24 +52,6 @@ class MergeableOrder {
 
   /// The contact person for delivery
   final String contact;
-
-  /// Creates a new [MergeableOrder] instance
-  const MergeableOrder({
-    required this.orderId,
-    required this.orderNumber,
-    required this.orderDate,
-    required this.street,
-    this.suburb,
-    required this.city,
-    required this.postcode,
-    this.state,
-    required this.country,
-    required this.contact,
-  });
-
-  /// Creates a [MergeableOrder] from JSON data
-  factory MergeableOrder.fromJson(Map<String, dynamic> json) =>
-      _$MergeableOrderFromJson(json);
 
   /// Converts this [MergeableOrder] into JSON data
   Map<String, dynamic> toJson() => _$MergeableOrderToJson(this);

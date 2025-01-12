@@ -15,6 +15,10 @@ class SearchOrdersResponse {
     this.errors,
   });
 
+  /// Creates a SearchOrdersResponse from JSON
+  factory SearchOrdersResponse.fromJson(Map<String, dynamic> json) =>
+      _$SearchOrdersResponseFromJson(json);
+
   /// List of orders matching the search criteria
   final List<SearchOrder> orders;
 
@@ -27,10 +31,6 @@ class SearchOrdersResponse {
 
   /// List of errors if the request failed
   final List<StarShipItError>? errors;
-
-  /// Creates a SearchOrdersResponse from JSON
-  factory SearchOrdersResponse.fromJson(Map<String, dynamic> json) =>
-      _$SearchOrdersResponseFromJson(json);
 
   /// Converts the SearchOrdersResponse to JSON
   Map<String, dynamic> toJson() => _$SearchOrdersResponseToJson(this);

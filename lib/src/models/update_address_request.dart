@@ -17,15 +17,15 @@ class UpdateAddressRequest {
     required this.address,
   });
 
+  /// Creates an UpdateAddressRequest from JSON
+  factory UpdateAddressRequest.fromJson(Map<String, dynamic> json) =>
+      _$UpdateAddressRequestFromJson(json);
+
   /// Unique identifier for the record to be updated
   final int id;
 
   /// Updated address details for the contact
   final AddressDetail address;
-
-  /// Creates an UpdateAddressRequest from JSON
-  factory UpdateAddressRequest.fromJson(Map<String, dynamic> json) =>
-      _$UpdateAddressRequestFromJson(json);
 
   /// Converts the UpdateAddressRequest to JSON
   Map<String, dynamic> toJson() => _$UpdateAddressRequestToJson(this);

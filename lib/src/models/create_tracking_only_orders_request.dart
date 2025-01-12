@@ -6,8 +6,6 @@ part 'create_tracking_only_orders_request.g.dart';
 /// Request model for creating tracking-only orders
 @JsonSerializable(explicitToJson: true)
 class CreateTrackingOnlyOrdersRequest {
-  /// The list of tracking-only orders to create
-  final List<TrackingOnlyOrder> orders;
 
   const CreateTrackingOnlyOrdersRequest({
     required this.orders,
@@ -16,6 +14,8 @@ class CreateTrackingOnlyOrdersRequest {
   /// Creates a [CreateTrackingOnlyOrdersRequest] from JSON map
   factory CreateTrackingOnlyOrdersRequest.fromJson(Map<String, dynamic> json) =>
       _$CreateTrackingOnlyOrdersRequestFromJson(json);
+  /// The list of tracking-only orders to create
+  final List<TrackingOnlyOrder> orders;
 
   /// Converts this [CreateTrackingOnlyOrdersRequest] to a JSON map
   Map<String, dynamic> toJson() =>

@@ -22,6 +22,9 @@ class Event {
     required this.description,
   });
 
+  /// Creates an Event from JSON
+  factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
+
   /// The timestamp when the event occurred
   final DateTime time;
 
@@ -36,9 +39,6 @@ class Event {
 
   /// A detailed description of the event
   final String description;
-
-  /// Creates an Event from JSON
-  factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
 
   /// Converts the Event to JSON
   Map<String, dynamic> toJson() => _$EventToJson(this);

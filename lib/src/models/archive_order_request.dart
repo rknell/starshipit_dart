@@ -14,13 +14,13 @@ class ArchiveOrderRequest {
     required this.orderId,
   });
 
-  /// The unique numeric identifier for the order
-  @JsonKey(name: 'order_id')
-  final int orderId;
-
   /// Creates an ArchiveOrderRequest from JSON
   factory ArchiveOrderRequest.fromJson(Map<String, dynamic> json) =>
       _$ArchiveOrderRequestFromJson(json);
+
+  /// The unique numeric identifier for the order
+  @JsonKey(name: 'order_id')
+  final int orderId;
 
   /// Converts the ArchiveOrderRequest to JSON
   Map<String, dynamic> toJson() => _$ArchiveOrderRequestToJson(this);

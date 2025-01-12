@@ -16,6 +16,10 @@ class ManifestFile {
     required this.fileData,
   });
 
+  /// Creates a ManifestFile from JSON
+  factory ManifestFile.fromJson(Map<String, dynamic> json) =>
+      _$ManifestFileFromJson(json);
+
   /// Name of this manifest file
   @JsonKey(name: 'file_name')
   final String fileName;
@@ -23,10 +27,6 @@ class ManifestFile {
   /// Base64 string which can be converted to PDF file for printing
   @JsonKey(name: 'file_data')
   final String fileData;
-
-  /// Creates a ManifestFile from JSON
-  factory ManifestFile.fromJson(Map<String, dynamic> json) =>
-      _$ManifestFileFromJson(json);
 
   /// Converts the ManifestFile to JSON
   Map<String, dynamic> toJson() => _$ManifestFileToJson(this);

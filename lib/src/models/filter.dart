@@ -36,35 +36,8 @@ class Filter {
     this.operator = FilterOperator.equals,
   });
 
-  /// The column to filter on
-  final FilterColumn column;
-
-  /// The operator to use for comparison (only applicable for date and weight filters)
-  final FilterOperator operator;
-
-  /// The value to filter by
-  final String value;
-
   /// Creates a Filter from JSON
   factory Filter.fromJson(Map<String, dynamic> json) => _$FilterFromJson(json);
-
-  /// Converts the Filter to JSON
-  Map<String, dynamic> toJson() => _$FilterToJson(this);
-
-  @override
-  String toString() {
-    final buffer = StringBuffer()
-      ..write(column.name)
-      ..write(':::');
-
-    if (operator != FilterOperator.equals &&
-        (column == FilterColumn.date || column == FilterColumn.weight)) {
-      buffer.write(operator.name);
-    }
-
-    buffer.write(value);
-    return buffer.toString();
-  }
 
   /// Creates a Filter from a filter string
   ///
@@ -105,5 +78,32 @@ class Filter {
       operator: operator,
       value: value,
     );
+  }
+
+  /// The column to filter on
+  final FilterColumn column;
+
+  /// The operator to use for comparison (only applicable for date and weight filters)
+  final FilterOperator operator;
+
+  /// The value to filter by
+  final String value;
+
+  /// Converts the Filter to JSON
+  Map<String, dynamic> toJson() => _$FilterToJson(this);
+
+  @override
+  String toString() {
+    final buffer = StringBuffer()
+      ..write(column.name)
+      ..write(':::');
+
+    if (operator != FilterOperator.equals &&
+        (column == FilterColumn.date || column == FilterColumn.weight)) {
+      buffer.write(operator.name);
+    }
+
+    buffer.write(value);
+    return buffer.toString();
   }
 }

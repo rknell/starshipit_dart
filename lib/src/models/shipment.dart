@@ -12,6 +12,10 @@ class Shipment {
     this.status,
   });
 
+  /// Creates a Shipment from JSON
+  factory Shipment.fromJson(Map<String, dynamic> json) =>
+      _$ShipmentFromJson(json);
+
   /// The order number for this shipment
   final String orderNumber;
 
@@ -20,10 +24,6 @@ class Shipment {
 
   /// Current status of the shipment
   final String? status;
-
-  /// Creates a Shipment from JSON
-  factory Shipment.fromJson(Map<String, dynamic> json) =>
-      _$ShipmentFromJson(json);
 
   /// Converts the Shipment to JSON
   Map<String, dynamic> toJson() => _$ShipmentToJson(this);

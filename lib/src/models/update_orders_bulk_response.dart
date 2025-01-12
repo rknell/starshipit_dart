@@ -20,6 +20,10 @@ class UpdateOrdersBulkResponse {
     this.errors,
   });
 
+  /// Creates an UpdateOrdersBulkResponse from JSON
+  factory UpdateOrdersBulkResponse.fromJson(Map<String, dynamic> json) =>
+      _$UpdateOrdersBulkResponseFromJson(json);
+
   /// The list of updated order details
   final List<FullOrder> orders;
 
@@ -28,10 +32,6 @@ class UpdateOrdersBulkResponse {
 
   /// List of errors if the request failed
   final List<StarShipItError>? errors;
-
-  /// Creates an UpdateOrdersBulkResponse from JSON
-  factory UpdateOrdersBulkResponse.fromJson(Map<String, dynamic> json) =>
-      _$UpdateOrdersBulkResponseFromJson(json);
 
   /// Converts the UpdateOrdersBulkResponse to JSON
   Map<String, dynamic> toJson() => _$UpdateOrdersBulkResponseToJson(this);

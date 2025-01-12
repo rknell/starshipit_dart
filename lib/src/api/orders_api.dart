@@ -1,6 +1,4 @@
-import 'package:http/http.dart' as http;
 import 'package:starshipit/src/models/update_orders_response.dart';
-import 'dart:convert';
 
 import '../exceptions.dart';
 import '../models/models.dart';

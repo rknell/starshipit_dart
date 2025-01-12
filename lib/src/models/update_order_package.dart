@@ -18,6 +18,10 @@ class UpdateOrderPackage {
     required this.delete,
   });
 
+  /// Creates an UpdateOrderPackage from JSON
+  factory UpdateOrderPackage.fromJson(Map<String, dynamic> json) =>
+      _$UpdateOrderPackageFromJson(json);
+
   /// The unique numeric identifier for the package
   @JsonKey(name: 'package_id')
   final int packageId;
@@ -48,10 +52,6 @@ class UpdateOrderPackage {
 
   /// An indicator used to determine whether this package should be deleted when updating the order
   final bool delete;
-
-  /// Creates an UpdateOrderPackage from JSON
-  factory UpdateOrderPackage.fromJson(Map<String, dynamic> json) =>
-      _$UpdateOrderPackageFromJson(json);
 
   /// Converts the UpdateOrderPackage to JSON
   Map<String, dynamic> toJson() => _$UpdateOrderPackageToJson(this);

@@ -291,6 +291,32 @@ class OrdersApi {
     return CreateOrdersResponse.fromJson(json);
   }
 
+  /// Creates multiple unshipped orders in bulk (Maximum orders per API request: 50)
+  ///
+  /// Endpoint: POST https://api.starshipit.com/api/orders/import
+  ///
+  /// Request:
+  /// - [orders]: List of orders details (Create Order Model)
+  ///
+  /// Response:
+  /// - [orders]: List of created orders details (Full Order Model)
+  /// - [success]: Determines whether the request was successfully submitted
+  /// - [errors]: List of detailed errors (Error Model)
+  ///
+  /// Required Headers:
+  /// - Content-Type: application/json
+  /// - StarShipIT-Api-Key: Api key in your Starshipit account under Settings > API > API Key
+  /// - Ocp-Apim-Subscription-Key: Subscription key in your Starshipit account under Settings > API > Subscription key
+  ///
+  /// Throws a [StarShipItException] if the request fails.
+  Future<CreateOrdersResponse> import(CreateOrdersBulkRequest request) async {
+    final json = await httpClient.post(
+      '/api/orders/import',
+      body: request.toJson(),
+    );
+    return CreateOrdersResponse.fromJson(json);
+  }
+
   /// Get order details by either order_id or order_number. If neither order_id or order_number is provided,
   /// this endpoint can be used to return multiple orders that match the criteria.
   ///

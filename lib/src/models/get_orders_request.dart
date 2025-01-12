@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'filter.dart';
+import 'sort_direction.dart';
 
 part 'get_orders_request.g.dart';
 
@@ -57,7 +58,7 @@ enum OrderInclude {
 enum OrderSortColumn {
   /// Sort by address
   @JsonValue('Address')
-  address,
+  address,get_order
 
   /// Sort by carrier
   @JsonValue('Carrier')
@@ -134,17 +135,6 @@ enum OrderSortColumn {
   /// Sort by writeback status
   @JsonValue('Writeback')
   writeback,
-}
-
-/// The direction to sort orders in
-enum SortDirection {
-  /// Sort in ascending order
-  @JsonValue('Ascending')
-  ascending,
-
-  /// Sort in descending order
-  @JsonValue('Descending')
-  descending,
 }
 
 /// Request Parameters for Get Orders:

@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'filter.dart';
+import 'sort_direction.dart';
 
 /// The status of orders to show in the summary
 enum OrderSummaryStatus {
@@ -101,17 +102,6 @@ enum OrderSortField {
   /// Sort by writeback status
   @JsonValue('Writeback')
   writeback,
-}
-
-/// The direction to sort orders in
-enum SortDirection {
-  /// Sort in ascending order
-  @JsonValue('Ascending')
-  ascending,
-
-  /// Sort in descending order
-  @JsonValue('Descending')
-  descending,
 }
 
 /// Request Parameters for List Orders Summary:

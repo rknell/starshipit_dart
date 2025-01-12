@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:starshipit/src/models/update_orders_response.dart';
 import 'dart:convert';
 
 import '../exceptions.dart';
@@ -157,5 +158,103 @@ class OrdersApi {
       body: request.toJson(),
     );
     return CreateOrdersResponse.fromJson(json);
+  }
+
+  /// Gets an order by its ID or order number
+  ///
+  /// [identifier] can be either an order ID or order number
+  ///
+  /// Throws a [StarShipItException] if the request fails.
+  Future<GetOrdersResponse> getOrder(String identifier) async {
+    final json = await httpClient.get('/api/orders/$identifier');
+    return GetOrdersResponse.fromJson(json);
+  }
+
+  /// Gets multiple orders by their IDs or order numbers
+  ///
+  /// [request] contains a list of order IDs or order numbers to fetch
+  ///
+  /// Throws a [StarShipItException] if the request fails.
+  Future<GetOrdersResponse> getOrders(GetOrdersRequest request) async {
+    final json = await httpClient.post(
+      '/api/orders/get',
+      body: request.toJson(),
+    );
+    return GetOrdersResponse.fromJson(json);
+  }
+
+  /// Updates an existing order
+  ///
+  /// [identifier] can be either an order ID or order number
+  /// [request] contains the updated order details
+  ///
+  /// Throws a [StarShipItException] if the request fails.
+  Future<UpdateOrdersResponse> updateOrder(
+    String identifier,
+    UpdateOrderRequest request,
+  ) async {
+    final json = await httpClient.put(
+      '/api/orders/$identifier',
+      body: request.toJson(),
+    );
+    return UpdateOrdersResponse.fromJson(json);
+  }
+
+  /// Updates multiple orders in a single request
+  ///
+  /// [request] contains a list of orders to update
+  ///
+  /// Throws a [StarShipItException] if the request fails.
+  Future<UpdateOrdersBulkResponse> updateOrders(
+      UpdateOrdersBulkRequest request) async {
+    final json = await httpClient.put(
+      '/api/orders/bulk',
+      body: request.toJson(),
+    );
+    return UpdateOrdersBulkResponse.fromJson(json);
+  }
+
+  /// Updates multiple orders with the same values
+  ///
+  /// [request] contains the order IDs/numbers to update and the values to apply to all orders
+  ///
+  /// Throws a [StarShipItException] if the request fails.
+  Future<BatchUpdateOrdersResponse> updateBatch(
+      BatchUpdateOrdersRequest request) async {
+    final json = await httpClient.put(
+      '/api/orders/batchupdate',
+      body: request.toJson(),
+    );
+    return BatchUpdateOrdersResponse.fromJson(json);
+  }
+
+  /// Deletes an order
+  ///
+  /// [identifier] can be either an order ID or order number
+  ///
+  /// Throws a [StarShipItException] if the request fails.
+  Future<DeleteOrderResponse> deleteOrder(String identifier) async {
+    final json = await httpClient.delete('/api/orders/$identifier');
+    return DeleteOrderResponse.fromJson(json);
+  }
+
+  /// Archives an order
+  ///
+  /// [identifier] can be either an order ID or order number
+  ///
+  /// Throws a [StarShipItException] if the request fails.
+  Future<ArchiveOrderResponse> archiveOrder(String identifier) async {
+    final json = await httpClient.post('/api/orders/$identifier/archive');
+    return ArchiveOrderResponse.fromJson(json);
+  }
+
+  /// Restores a previously archived order
+  ///
+  /// [identifier] can be either an order ID or order number
+  ///
+  /// Throws a [StarShipItException] if the request fails.
+  Future<RestoreOrderResponse> restoreOrder(String identifier) async {
+    final json = await httpClient.post('/api/orders/$identifier/restore');
+    return RestoreOrderResponse.fromJson(json);
   }
 }

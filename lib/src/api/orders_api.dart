@@ -223,8 +223,20 @@ class OrdersApi {
 
   /// Merges multiple unshipped orders into a single unshipped order
   ///
-  /// The [request] parameter specifies the parent order ID and the list of child order IDs to merge.
-  /// All orders must be unshipped for the merge to succeed.
+  /// Endpoint: POST https://api.starshipit.com/api/orders/merge
+  ///
+  /// Request:
+  /// - [parent_order_id]: The order_id of the unshipped order for the child orders to merge under
+  /// - [child_order_ids]: List of order_id to merge into the parent unshipped order
+  ///
+  /// Response:
+  /// - [success]: Determines whether the request was successfully submitted
+  /// - [errors]: List of detailed errors (Error Model)
+  ///
+  /// Required Headers:
+  /// - Content-Type: application/json
+  /// - StarShipIT-Api-Key: Api key in your Starshipit account under Settings > API > API Key
+  /// - Ocp-Apim-Subscription-Key: Subscription key in your Starshipit account under Settings > API > Subscription key
   ///
   /// Throws a [StarShipItException] if the request fails.
   Future<MergeOrdersResponse> merge(MergeOrdersRequest request) async {

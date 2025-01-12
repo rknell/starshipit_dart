@@ -121,7 +121,22 @@ class OrdersApi {
 
   /// Lists all delivered orders with a given order reference
   ///
-  /// Use [request] to specify the order reference to filter by.
+  /// Get a list of all delivered orders with a given order reference
+  ///
+  /// Endpoint: GET https://api.starshipit.com/api/orders/delivered
+  ///
+  /// Parameters:
+  /// - [order_ref]: The order reference to filter delivered orders by
+  ///
+  /// Response:
+  /// - [orders]: List of shipped orders details (Full Order Model)
+  /// - [success]: Determines whether the request was successfully submitted
+  /// - [errors]: List of detailed errors (Error Model)
+  ///
+  /// Required Headers:
+  /// - Content-Type: application/json
+  /// - StarShipIT-Api-Key: Api key in your Starshipit account under Settings > API > API Key
+  /// - Ocp-Apim-Subscription-Key: Subscription key in your Starshipit account under Settings > API > Subscription key
   ///
   /// Throws a [StarShipItException] if the request fails.
   Future<ListDeliveredOrdersResponse> listDelivered({

@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'create_order_request.dart';
+import 'create_order_model.dart';
 
 part 'create_orders_request.g.dart';
 
@@ -16,7 +16,7 @@ class CreateOrdersRequest {
   });
 
   /// The order details
-  final CreateOrderRequest order;
+  final CreateOrderModel order;
 
   /// Creates a CreateOrdersRequest from JSON
   factory CreateOrdersRequest.fromJson(Map<String, dynamic> json) =>

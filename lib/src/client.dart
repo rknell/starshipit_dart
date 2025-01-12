@@ -1,4 +1,7 @@
 import 'package:http/http.dart' as http;
+import 'package:starshipit/src/api/address_book_api.dart';
+import 'package:starshipit/src/api/manifests_api.dart';
+import 'package:starshipit/src/api/starshipit_http_client.dart';
 import 'api/orders_api.dart';
 import 'api/shipping_api.dart';
 import 'api/tracking_api.dart';
@@ -11,60 +14,25 @@ class StarShipItClient {
   /// [apiKey] is your StarShipIT API key
   /// [baseUrl] is the base URL for the StarShipIT API (defaults to https://api.starshipit.com)
   StarShipItClient({
-    required String apiKey,
-    String baseUrl = 'https://api.starshipit.com',
-  })  : _baseUrl = baseUrl,
-        _client = http.Client(),
-        _apiKey = apiKey {
-    _orders = OrdersApi(
-      baseUrl: baseUrl,
-      headers: _headers,
-      client: http.Client(),
-    );
-    _shipping = ShippingApi(
-      baseUrl: baseUrl,
-      headers: _headers,
-      client: http.Client(),
-    );
-    _tracking = TrackingApi(
-      baseUrl: baseUrl,
-      headers: _headers,
-      client: http.Client(),
-    );
-    _rates = RatesApi(
-      baseUrl: baseUrl,
-      headers: _headers,
-      client: http.Client(),
-    );
-  }
-  final String _baseUrl;
-  final http.Client _client;
-  final String _apiKey;
-  late final OrdersApi _orders;
-  late final ShippingApi _shipping;
-  late final TrackingApi _tracking;
-  late final RatesApi _rates;
+    required this.apiKey,
+    required this.subscriptionKey,
+    this.baseUrl = 'https://api.starshipit.com',
+  }) : httpClient = StarshipitHttpClient(
+            apiKey: apiKey, subscriptionKey: subscriptionKey);
 
-  /// The default headers used for API requests
-  Map<String, String> get _headers => {
-        'Content-Type': 'application/json',
-        'StarShipIT-Api-Key': _apiKey,
-      };
-
-  /// Access order-related API endpoints
-  OrdersApi get orders => _orders;
-
-  /// Access shipping-related API endpoints
-  ShippingApi get shipping => _shipping;
-
-  /// Access tracking-related API endpoints
-  TrackingApi get tracking => _tracking;
-
-  /// Access rate-related API endpoints
-  RatesApi get rates => _rates;
+  final String baseUrl;
+  final StarshipitHttpClient httpClient;
+  final String apiKey;
+  final String subscriptionKey;
+  OrdersApi get orders => OrdersApi(httpClient: httpClient);
+  ShippingApi get shipping => ShippingApi(httpClient: httpClient);
+  TrackingApi get tracking => TrackingApi(httpClient: httpClient);
+  RatesApi get rates => RatesApi(httpClient: httpClient);
+  ManifestsApi get manifests => ManifestsApi(httpClient: httpClient);
+  AddressBookApi get addressBook => AddressBookApi(httpClient: httpClient);
 
   /// Closes the client and frees up resources
   void dispose() {
-    _client.close();
+    httpClient.dispose();
   }
 }

@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'create_order_request.dart';
+import 'create_order_model.dart';
 
 part 'create_orders_bulk_request.g.dart';
 
@@ -19,7 +19,7 @@ class CreateOrdersBulkRequest {
         );
 
   /// The list of orders to create
-  final List<CreateOrderRequest> orders;
+  final List<CreateOrderModel> orders;
 
   /// Creates a CreateOrdersBulkRequest from JSON
   factory CreateOrdersBulkRequest.fromJson(Map<String, dynamic> json) =>

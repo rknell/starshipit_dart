@@ -37,6 +37,42 @@ enum AddressValidation {
 }
 
 /// Represents a full order response from the StarShipIT API
+/// ```
+/// Attribute              Type          Description
+/// order_id              integer       The unique numeric identifier for the order
+/// order_date            datetime      The date when the order was created in UTC
+/// order_number          string        The identifier of the order pulled from source e-Commerce platform
+/// reference             string        Customer's reference
+/// carrier               string        The carrier that will be used when creating shipment
+/// carrier_name          string        Name of the carrier used for shipment delivery
+/// carrier_service_code  string        Carrier service code for delivery
+/// shipping_method       string        Delivery method name
+/// shipping_description  string        Delivery method description
+/// signature_required    boolean       Determine whether signature is needed on delivery
+/// dangerous_goods       boolean       Determine whether shipment contains dangerous goods
+/// currency              string        Currency code for the order value (e.g. AUD)
+/// sender_details        object        Sender address and contact details
+/// destination          object        Shipping address and contact details
+/// items                object list   Item list containing the order item details
+/// packages             object list   Package list containing the parcel details
+/// metadatas            object list   Additional meta data for the order
+/// events               object list   Historical events associated with this order
+/// declared_value       double        Declared value of an international order
+/// archived             boolean       Determine whether a shipment is archived
+/// manifest_number      integer       Carrier manifest identifier
+/// address_validation   string        Determine whether an address is validated for a shipment. NotChecked, Valid or Invalid
+/// child_consignment_ids string       Displays child consignment ids if the shipment has been merged
+/// create_return        boolean       Determine whether a return label was generated when outgoing label was generated
+/// dtp                 boolean       Determine whether duty and tax has been paid for a shipment
+/// export_type         string        Export type of a shipment
+/// add_insurance       boolean       Determine whether shipment has insurance
+/// insurance_value     double        Shipment insurance value
+/// plt                boolean       Determine whether shipment is paperless trade
+/// type                enum         Type of shipment. Outgoing, Return or Transfer
+/// platform            string        The order platform
+/// status              string        The order status. Unshipped, Saved, Printed or Delivered)
+/// manifested          boolean       Detemine whether shipment is manifested
+/// ```
 @JsonSerializable()
 class FullOrder {
   /// Creates a new full order instance
@@ -89,7 +125,7 @@ class FullOrder {
   final String orderNumber;
 
   /// Customer's reference
-  final String reference;
+  final String? reference;
 
   /// The carrier that will be used when creating shipment
   final String carrier;

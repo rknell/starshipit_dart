@@ -4,13 +4,28 @@ import 'destination_details.dart';
 import 'create_order_item.dart';
 import 'create_order_package.dart';
 
-part 'create_order_request.g.dart';
+part 'create_order_model.g.dart';
 
-/// Represents a create order request in the StarShipIT API
+/// Request wrapper for the Create Order endpoint
+/// ```
+/// Attribute                    Type        Description
+/// order_date (optional)        datetime    The date when the order was created in UTC
+/// order_number                 string      The identifier of the order pulled from source e-Commerce platform (max length: 50)
+/// reference (optional)         string      Customer's reference (max length: 50)
+/// shipping_method (optional)   string      Delivery method name (max length: 100)
+/// shipping_description (opt)   string      Delivery method description (max length: 100)
+/// signature_required (opt)     boolean     Determine whether signature is needed on delivery
+/// return_order (optional)      boolean     If true, only the return label will be generated
+/// currency (optional)          string      Currency code for the order value (max length: 3) e.g. AUD
+/// sender_details (optional)    object      Sender address and contact details
+/// destination                  object      Shipping address and contact details
+/// items (optional)            list        Item list containing the order item details
+/// packages (optional)         list        Package list containing the parcel details
+/// ```
 @JsonSerializable()
-class CreateOrderRequest {
+class CreateOrderModel {
   /// Creates a new create order request instance
-  CreateOrderRequest({
+  CreateOrderModel({
     this.orderDate,
     required this.orderNumber,
     this.reference,
@@ -33,6 +48,10 @@ class CreateOrderRequest {
             'shipping_description must not exceed 100 characters'),
         assert(currency == null || currency.length == 3,
             'currency must be exactly 3 characters');
+
+  /// Creates a CreateOrderRequest from JSON
+  factory CreateOrderModel.fromJson(Map<String, dynamic> json) =>
+      _$CreateOrderModelFromJson(json);
 
   /// The date when the order was created in UTC
   @JsonKey(name: 'order_date')
@@ -77,10 +96,6 @@ class CreateOrderRequest {
   /// Package list containing the parcel details
   final List<CreateOrderPackage>? packages;
 
-  /// Creates a CreateOrderRequest from JSON
-  factory CreateOrderRequest.fromJson(Map<String, dynamic> json) =>
-      _$CreateOrderRequestFromJson(json);
-
   /// Converts the CreateOrderRequest to JSON
-  Map<String, dynamic> toJson() => _$CreateOrderRequestToJson(this);
+  Map<String, dynamic> toJson() => _$CreateOrderModelToJson(this);
 }

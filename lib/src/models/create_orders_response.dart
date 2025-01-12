@@ -21,7 +21,7 @@ class CreateOrdersResponse {
   });
 
   /// The created order details
-  final FullOrder order;
+  final FullOrder? order;
 
   /// Whether the request was successful
   final bool success;

@@ -229,4 +229,29 @@ class OrdersApi {
     final json = jsonDecode(response.body) as Map<String, dynamic>;
     return AssignOrdersResponse.fromJson(json);
   }
+
+  /// Creates a new unshipped order
+  ///
+  /// The [request] parameter contains the order details including shipping information,
+  /// destination details, and items to be shipped.
+  ///
+  /// Throws a [StarShipItException] if the request fails.
+  Future<CreateOrdersResponse> create(CreateOrdersRequest request) async {
+    final uri = Uri.parse('$_baseUrl/api/orders');
+
+    final response = await client.post(
+      uri,
+      headers: _headers,
+      body: jsonEncode(request.toJson()),
+    );
+
+    if (response.statusCode != 200) {
+      throw StarShipItException(
+        'Failed to create order: ${response.statusCode} ${response.reasonPhrase}',
+      );
+    }
+
+    final json = jsonDecode(response.body) as Map<String, dynamic>;
+    return CreateOrdersResponse.fromJson(json);
+  }
 }

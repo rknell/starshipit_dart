@@ -42,4 +42,7 @@ doc/api/
 *.aot
 *.dill
 *.js.deps
-*.js.map 
+*.js.map
+
+# Environment files
+.env 

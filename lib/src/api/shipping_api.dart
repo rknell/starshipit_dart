@@ -182,11 +182,24 @@ class ShippingApi {
     return CloneShipmentResponse.fromJson(json);
   }
 
-  /// Redoes a printed or shipped order
+  /// Redoes a printed or shipped order.
   ///
-  /// The [request] parameter specifies the order ID to redo.
-  /// Returns the full details of the replaced order.
-  /// The original order will be archived.
+  /// Makes a POST request to `/api/orders/shipment/replace` to create a new order from an existing one.
+  /// The original order will be archived and a new order will be created with a new order ID.
+  ///
+  /// Required headers:
+  /// - Content-Type: application/json
+  /// - StarShipIT-Api-Key: API key from Settings > API > API Key
+  /// - Ocp-Apim-Subscription-Key: Subscription key from Settings > API > Subscription key
+  ///
+  /// Parameters:
+  /// - [request]: The [ReplaceShipmentRequest] containing:
+  ///   - orderId: The shipped or printed order ID to redo
+  ///
+  /// Returns a [ReplaceShipmentResponse] containing:
+  /// - order: The details of the replaced order (Full Order Model)
+  /// - success: Determines whether the request was successfully submitted
+  /// - errors: List of detailed errors if the request was not successful
   ///
   /// Throws a [StarShipItException] if the request fails.
   Future<ReplaceShipmentResponse> replaceShipment(

@@ -120,15 +120,30 @@ class ShippingApi {
     return PrintPackingSlipsResponse.fromJson(json);
   }
 
-  /// Manifests printed orders with the courier service
+  /// Finalise and manifest your printed orders.
   ///
-  /// The [request] parameter specifies the list of printed order IDs to manifest.
-  /// Manifesting will send the order details to your courier service for billing.
-  /// The response includes base64 encoded PDF data for the manifest document.
+  /// Makes a POST request to `/api/orders/manifest` to send order details to your courier service for billing.
+  /// The response includes base64 encoded PDF data that can be decoded to a printable document.
+  ///
+  /// Required headers:
+  /// - Content-Type: application/json
+  /// - StarShipIT-Api-Key: API key from Settings > API > API Key
+  /// - Ocp-Apim-Subscription-Key: Subscription key from Settings > API > Subscription key
+  ///
+  /// Parameters:
+  /// - [request]: The [ManifestOrdersRequest] containing:
+  ///   - orderIds: List of printed order IDs to manifest
+  ///
+  /// Returns a [ManifestOrdersResponse] containing:
+  /// - labelType: Type of label name
+  /// - pdf: Base64 string which can be converted to PDF files for printing
+  /// - success: Determines whether the request was successfully submitted
+  /// - errors: List of detailed errors if the request was not successful
   ///
   /// Throws a [StarShipItException] if the request fails.
   Future<ManifestOrdersResponse> manifestOrders(
-      ManifestOrdersRequest request) async {
+    ManifestOrdersRequest request,
+  ) async {
     final json = await httpClient.post(
       '/api/orders/manifest',
       body: request.toJson(),
@@ -136,14 +151,30 @@ class ShippingApi {
     return ManifestOrdersResponse.fromJson(json);
   }
 
-  /// Clones a printed or shipped order
+  /// Clones a printed or shipped order.
   ///
-  /// The [request] parameter specifies the order ID to clone and whether it should be a return shipment.
-  /// Returns the full details of the cloned order.
+  /// Makes a POST request to `/api/orders/shipment/clone` to create a copy of an existing order.
+  /// The cloned order will have a new order ID but retain all other details from the original order.
+  ///
+  /// Required headers:
+  /// - Content-Type: application/json
+  /// - StarShipIT-Api-Key: API key from Settings > API > API Key
+  /// - Ocp-Apim-Subscription-Key: Subscription key from Settings > API > Subscription key
+  ///
+  /// Parameters:
+  /// - [request]: The [CloneShipmentRequest] containing:
+  ///   - orderId: The shipped or printed order ID to clone
+  ///   - toReturnShipment (optional): Determines whether the clone is for a return order
+  ///
+  /// Returns a [CloneShipmentResponse] containing:
+  /// - order: The details of the cloned order (Full Order Model)
+  /// - success: Determines whether the request was successfully submitted
+  /// - errors: List of detailed errors if the request was not successful
   ///
   /// Throws a [StarShipItException] if the request fails.
   Future<CloneShipmentResponse> cloneShipment(
-      CloneShipmentRequest request) async {
+    CloneShipmentRequest request,
+  ) async {
     final json = await httpClient.post(
       '/api/orders/shipment/clone',
       body: request.toJson(),

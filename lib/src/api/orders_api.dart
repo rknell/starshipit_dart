@@ -437,13 +437,34 @@ class OrdersApi {
 
   /// Updates multiple orders in a single request
   ///
-  /// [request] contains a list of orders to update
+  /// You can use the Update Orders API to update order information. Different fields are available depending on
+  /// the state of the order (i.e. once you have generated a label there is limited ability to modify the
+  /// shipment details as they must be retained).
+  ///
+  /// For new/unshipped orders you can update all non read-only fields in the model (Update Order Model).
+  /// For printed & shipped orders you can update:
+  /// - Status (you cannot update back to new/unshipped once printed)
+  ///
+  /// Endpoint: PUT https://api.starshipit.com/api/orders/update
+  ///
+  /// Request:
+  /// - [orders]: List of orders details (Update Order Model)
+  ///
+  /// Response:
+  /// - [orders]: List of updated orders details (Full Order Model)
+  /// - [success]: Determines whether the request was successfully submitted
+  /// - [errors]: List of detailed errors (Error Model)
+  ///
+  /// Required Headers:
+  /// - Content-Type: application/json
+  /// - StarShipIT-Api-Key: Api key in your Starshipit account under Settings > API > API Key
+  /// - Ocp-Apim-Subscription-Key: Subscription key in your Starshipit account under Settings > API > Subscription key
   ///
   /// Throws a [StarShipItException] if the request fails.
   Future<UpdateOrdersBulkResponse> updateOrders(
       UpdateOrdersBulkRequest request) async {
     final json = await httpClient.put(
-      '/api/orders/bulk',
+      '/api/orders/update',
       body: request.toJson(),
     );
     return UpdateOrdersBulkResponse.fromJson(json);

@@ -61,11 +61,21 @@ class ManifestsApi {
     return GetManifestFilesResponse.fromJson(json);
   }
 
-  /// Creates a manifest for the specified shipments
+  /// Retrieve a list of shipment ids based on the tracking numbers or order numbers that have been supplied.
+  /// These ids can be passed as a parameter to the manifest orders endpoint.
   ///
-  /// [request] The request containing tracking numbers or order numbers
-  /// Returns a [ManifestShipmentsResponse] containing the manifest PDF
-  Future<ManifestShipmentsResponse> manifestShipments(
+  /// Endpoint: POST /api/manifests/shipments
+  ///
+  /// See [ManifestShipmentsRequest] for request parameters:
+  /// - tracking_numbers: List of tracking numbers or order numbers for shipments to be included in the manifest
+  /// - use_order_numbers: Indicates if the tracking_numbers parameter contains tracking numbers or order numbers
+  ///
+  /// See [ManifestShipmentsResponse] for response details:
+  /// - pdf: The pdf of the manifest file created
+  /// - file_name: Description of the pdf file returned
+  /// - success: Whether the request was successful
+  /// - errors: Optional list of errors if request failed
+  Future<ManifestShipmentsResponse> manifestOrders(
       ManifestShipmentsRequest request) async {
     final json = await httpClient.post(
       '/api/manifests/shipments',
@@ -76,8 +86,15 @@ class ManifestsApi {
 
   /// Manifests all relevant records for a given carrier that are ready to be shipped
   ///
-  /// [request] The request containing the carrier to manifest shipments for
-  /// Returns a [ManifestByCarrierResponse] containing the number of records manifested
+  /// Endpoint: POST /api/manifests/carrier
+  ///
+  /// See [ManifestByCarrierRequest] for request parameters:
+  /// - carrier (required): The string representation of the carrier enum value for the selected carrier
+  ///
+  /// See [ManifestByCarrierResponse] for response details:
+  /// - records_manifested: The count of shipments that have been manifested as a result of this request
+  /// - success: Whether the request was successful
+  /// - errors: Optional list of errors if request failed
   Future<ManifestByCarrierResponse> manifestByCarrier(
       ManifestByCarrierRequest request) async {
     final json = await httpClient.post(

@@ -4,13 +4,13 @@ part 'archive_order_request.g.dart';
 
 /// Request wrapper for the Archive Order endpoint
 /// ```
-/// Attribute   Type     Description
+/// Attribute   Type      Description
 /// order_id   integer   The unique numeric identifier for the order
 /// ```
 @JsonSerializable()
 class ArchiveOrderRequest {
   /// Creates a new archive order request instance
-  ArchiveOrderRequest({
+  const ArchiveOrderRequest({
     required this.orderId,
   });
 

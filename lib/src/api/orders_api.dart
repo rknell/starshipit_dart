@@ -535,13 +535,33 @@ class OrdersApi {
     return DeleteOrderResponse.fromJson(json);
   }
 
-  /// Archives an order
+  /// Archives a printed/shipped order
   ///
-  /// [identifier] can be either an order ID or order number
+  /// Endpoint: POST https://api.starshipit.com/api/orders/archive
+  ///
+  /// Request:
+  /// - [order_id]: The unique numeric identifier for the order
+  ///
+  /// Response:
+  /// - [success]: Determines whether the request was successfully submitted
+  /// - [errors]: List of detailed errors (Error Model)
+  ///
+  /// Required Headers:
+  /// - Content-Type: application/json
+  /// - StarShipIT-Api-Key: Api key in your Starshipit account under Settings > API > API Key
+  /// - Ocp-Apim-Subscription-Key: Subscription key in your Starshipit account under Settings > API > Subscription key
   ///
   /// Throws a [StarShipItException] if the request fails.
   Future<ArchiveOrderResponse> archiveOrder(String identifier) async {
-    final json = await httpClient.post('/api/orders/$identifier/archive');
+    final orderId = int.tryParse(identifier);
+    if (orderId == null) {
+      throw StarShipItException('Invalid order ID: $identifier');
+    }
+    final request = ArchiveOrderRequest(orderId: orderId);
+    final json = await httpClient.post(
+      '/api/orders/archive',
+      queryParameters: request.toQueryParameters(),
+    );
     return ArchiveOrderResponse.fromJson(json);
   }
 

@@ -100,3 +100,4 @@ export 'delete_order_response.dart';
 export 'archive_order_response.dart';
 export 'restore_order_response.dart';
 export 'sort_direction.dart';
+export 'archive_order_request.dart';

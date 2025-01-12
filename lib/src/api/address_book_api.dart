@@ -67,7 +67,7 @@ class AddressBookApi {
     return UpdateAddressResponse.fromJson(json);
   }
 
-  /// Saves address information for a new contact.
+  /// Save address information for a new contact.
   ///
   /// Endpoint: POST /api/addressbook/
   ///

@@ -14,10 +14,38 @@ class ShippingApi {
 
   final StarshipitHttpClient httpClient;
 
-  /// Prints a shipping label for a given order
+  /// Prints a shipping label for a given order.
   ///
-  /// The [request] parameter specifies the order details and carrier information.
+  /// Makes a POST request to `/api/orders/shipment` to generate shipping labels.
   /// The response includes base64 encoded label data that can be decoded to PDF.
+  ///
+  /// Required headers:
+  /// - Content-Type: application/json
+  /// - StarShipIT-Api-Key: API key from Settings > API > API Key
+  /// - Ocp-Apim-Subscription-Key: Subscription key from Settings > API > Subscription key
+  ///
+  /// Parameters:
+  /// - [request]: The [PrintLabelRequest] containing:
+  ///   - orderId (optional): The unique numeric identifier for the order
+  ///   - orderNumber (optional): The identifier of the order pulled from source e-Commerce platform
+  ///   - carrier: The carrier that will be used when creating shipment
+  ///   - carrierServiceCode: Carrier service code for delivery
+  ///   - packages: Package list containing the parcel details with:
+  ///     - weight (optional): Physical weight of the parcel in kilograms (kg)
+  ///     - height (optional): Height of the parcel in meters (m)
+  ///     - width (optional): Width of the parcel in meters (m)
+  ///     - length (optional): Length of the parcel in meters (m)
+  ///   - reprint: Returns labels previously generated for the printed order
+  ///
+  /// Returns a [PrintLabelResponse] containing:
+  /// - orderId: The unique numeric identifier for the order
+  /// - orderNumber: The identifier of the order pulled from source e-Commerce platform
+  /// - carrierName: Name of the carrier used for shipment delivery
+  /// - trackingNumbers: List of tracking numbers
+  /// - labels: List of base64 strings which can be converted to PDF files for printing
+  /// - labelTypes: List of label type codes which will match the label in order
+  /// - success: Determines whether the request was successfully submitted
+  /// - errors: List of detailed errors if the request was not successful
   ///
   /// Throws a [StarShipItException] if the request fails.
   Future<PrintLabelResponse> printLabel(PrintLabelRequest request) async {

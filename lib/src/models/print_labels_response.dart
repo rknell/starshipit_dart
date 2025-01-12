@@ -4,10 +4,12 @@ import 'print_labels_label.dart';
 
 part 'print_labels_response.g.dart';
 
-/// Response model for printing multiple shipping labels
+/// Response model for printing multiple shipping labels.
+///
+/// Contains a list of label files printed, each with a label type and base64 encoded PDF data.
+/// The base64 strings can be decoded to generate printable PDF files.
 @JsonSerializable()
 class PrintLabelsResponse {
-
   /// Creates a new [PrintLabelsResponse] instance
   const PrintLabelsResponse({
     required this.labels,
@@ -18,7 +20,8 @@ class PrintLabelsResponse {
   /// Creates a [PrintLabelsResponse] from JSON data
   factory PrintLabelsResponse.fromJson(Map<String, dynamic> json) =>
       _$PrintLabelsResponseFromJson(json);
-  /// List of label files printed
+
+  /// List of label files printed, each containing a label type and base64 encoded PDF data
   final List<PrintLabelsLabel> labels;
 
   /// Determines whether the request was successfully submitted

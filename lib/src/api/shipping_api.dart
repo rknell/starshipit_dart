@@ -56,10 +56,27 @@ class ShippingApi {
     return PrintLabelResponse.fromJson(json);
   }
 
-  /// Prints shipping labels for multiple orders
+  /// Prints shipping labels for multiple orders.
   ///
-  /// The [request] parameter specifies the list of order IDs to print labels for.
+  /// Makes a POST request to `/api/orders/shipments` to generate shipping labels.
   /// The response includes base64 encoded label data that can be decoded to PDF.
+  ///
+  /// Required headers:
+  /// - Content-Type: application/json
+  /// - StarShipIT-Api-Key: API key from Settings > API > API Key
+  /// - Ocp-Apim-Subscription-Key: Subscription key from Settings > API > Subscription key
+  ///
+  /// Parameters:
+  /// - [request]: The [PrintLabelsRequest] containing:
+  ///   - orderIds: List of unique numeric identifiers for the orders
+  ///   - reprint: Returns labels previously generated for the printed orders
+  ///
+  /// Returns a [PrintLabelsResponse] containing:
+  /// - labels: List of label files printed, each containing:
+  ///   - labelType: Type of label name
+  ///   - labelBase64String: base64 string which can be converted to PDF files for printing
+  /// - success: Determines whether the request was successfully submitted
+  /// - errors: List of detailed errors if the request was not successful
   ///
   /// Throws a [StarShipItException] if the request fails.
   Future<PrintLabelsResponse> printLabels(PrintLabelsRequest request) async {

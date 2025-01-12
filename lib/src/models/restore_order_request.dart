@@ -4,13 +4,13 @@ part 'restore_order_request.g.dart';
 
 /// Request wrapper for the Restore Order endpoint
 /// ```
-/// Attribute   Type     Description
+/// Attribute   Type      Description
 /// order_id   integer   The unique numeric identifier for the order
 /// ```
 @JsonSerializable()
 class RestoreOrderRequest {
   /// Creates a new restore order request instance
-  RestoreOrderRequest({
+  const RestoreOrderRequest({
     required this.orderId,
   });
 

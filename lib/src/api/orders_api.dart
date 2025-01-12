@@ -520,14 +520,8 @@ class OrdersApi {
   /// - Ocp-Apim-Subscription-Key: Subscription key in your Starshipit account under Settings > API > Subscription key
   ///
   /// Throws a [StarShipItException] if the request fails.
-  Future<DeleteOrderResponse> deleteOrder(String identifier) async {
-    final orderId = int.tryParse(identifier);
-    if (orderId == null) {
-      throw StarShipItException('Invalid order ID: $identifier');
-    }
-    final request = DeleteOrderRequest(
-      orderId: orderId,
-    );
+  Future<DeleteOrderResponse> deleteOrder(int orderId) async {
+    final request = DeleteOrderRequest(orderId: orderId);
     final json = await httpClient.delete(
       '/api/orders/delete',
       queryParameters: request.toQueryParameters(),
@@ -552,11 +546,7 @@ class OrdersApi {
   /// - Ocp-Apim-Subscription-Key: Subscription key in your Starshipit account under Settings > API > Subscription key
   ///
   /// Throws a [StarShipItException] if the request fails.
-  Future<ArchiveOrderResponse> archiveOrder(String identifier) async {
-    final orderId = int.tryParse(identifier);
-    if (orderId == null) {
-      throw StarShipItException('Invalid order ID: $identifier');
-    }
+  Future<ArchiveOrderResponse> archiveOrder(int orderId) async {
     final request = ArchiveOrderRequest(orderId: orderId);
     final json = await httpClient.post(
       '/api/orders/archive',
@@ -567,11 +557,27 @@ class OrdersApi {
 
   /// Restores a previously archived order
   ///
-  /// [identifier] can be either an order ID or order number
+  /// Endpoint: POST https://api.starshipit.com/api/orders/restore
+  ///
+  /// Request:
+  /// - [order_id]: The unique numeric identifier for the order
+  ///
+  /// Response:
+  /// - [success]: Determines whether the request was successfully submitted
+  /// - [errors]: List of detailed errors (Error Model)
+  ///
+  /// Required Headers:
+  /// - Content-Type: application/json
+  /// - StarShipIT-Api-Key: Api key in your Starshipit account under Settings > API > API Key
+  /// - Ocp-Apim-Subscription-Key: Subscription key in your Starshipit account under Settings > API > Subscription key
   ///
   /// Throws a [StarShipItException] if the request fails.
-  Future<RestoreOrderResponse> restoreOrder(String identifier) async {
-    final json = await httpClient.post('/api/orders/$identifier/restore');
+  Future<RestoreOrderResponse> restoreOrder(int orderId) async {
+    final request = RestoreOrderRequest(orderId: orderId);
+    final json = await httpClient.post(
+      '/api/orders/restore',
+      queryParameters: request.toQueryParameters(),
+    );
     return RestoreOrderResponse.fromJson(json);
   }
 }

@@ -57,8 +57,13 @@ class StarshipitHttpClient {
   Future<Map<String, dynamic>> get(
     String endpoint, {
     Map<String, String>? headers,
+    Map<String, String>? queryParameters,
   }) async {
-    final uri = Uri.parse('$baseUrl$endpoint');
+    var uri = Uri.parse('$baseUrl$endpoint');
+    if (queryParameters != null) {
+      uri = uri.replace(
+          queryParameters: {...uri.queryParameters, ...queryParameters});
+    }
     final response = await _client.get(uri, headers: _mergeHeaders(headers));
     return _handleResponse(response);
   }
@@ -68,8 +73,13 @@ class StarshipitHttpClient {
     String endpoint, {
     Object? body,
     Map<String, String>? headers,
+    Map<String, String>? queryParameters,
   }) async {
-    final uri = Uri.parse('$baseUrl$endpoint');
+    var uri = Uri.parse('$baseUrl$endpoint');
+    if (queryParameters != null) {
+      uri = uri.replace(
+          queryParameters: {...uri.queryParameters, ...queryParameters});
+    }
     final response = await _client.post(
       uri,
       headers: _mergeHeaders(headers),
@@ -83,8 +93,13 @@ class StarshipitHttpClient {
     String endpoint, {
     Object? body,
     Map<String, String>? headers,
+    Map<String, String>? queryParameters,
   }) async {
-    final uri = Uri.parse('$baseUrl$endpoint');
+    var uri = Uri.parse('$baseUrl$endpoint');
+    if (queryParameters != null) {
+      uri = uri.replace(
+          queryParameters: {...uri.queryParameters, ...queryParameters});
+    }
     final response = await _client.put(
       uri,
       headers: _mergeHeaders(headers),
@@ -97,8 +112,13 @@ class StarshipitHttpClient {
   Future<Map<String, dynamic>> delete(
     String endpoint, {
     Map<String, String>? headers,
+    Map<String, String>? queryParameters,
   }) async {
-    final uri = Uri.parse('$baseUrl$endpoint');
+    var uri = Uri.parse('$baseUrl$endpoint');
+    if (queryParameters != null) {
+      uri = uri.replace(
+          queryParameters: {...uri.queryParameters, ...queryParameters});
+    }
     final response = await _client.delete(uri, headers: _mergeHeaders(headers));
     return _handleResponse(response);
   }

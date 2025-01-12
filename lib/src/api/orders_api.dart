@@ -3,20 +3,16 @@ import 'dart:convert';
 
 import '../exceptions.dart';
 import '../models/models.dart';
+import 'starshipit_http_client.dart';
 
 /// Handles all order-related API requests
 class OrdersApi {
   /// Creates a new orders API instance
   OrdersApi({
-    required String baseUrl,
-    required Map<String, String> headers,
-    required this.client,
-  })  : _baseUrl = baseUrl,
-        _headers = headers;
+    required this.httpClient,
+  });
 
-  final String _baseUrl;
-  final Map<String, String> _headers;
-  final http.Client client;
+  final StarshipitHttpClient httpClient;
 
   /// Lists all unshipped orders
   ///
@@ -27,19 +23,10 @@ class OrdersApi {
   Future<ListUnshippedOrdersResponse> listUnshipped({
     ListUnshippedOrdersRequest? request,
   }) async {
-    final uri = Uri.parse('$_baseUrl/api/orders/unshipped').replace(
+    final json = await httpClient.get(
+      '/api/orders/unshipped',
       queryParameters: request?.toQueryParameters(),
     );
-
-    final response = await client.get(uri, headers: _headers);
-
-    if (response.statusCode != 200) {
-      throw StarShipItException(
-        'Failed to list unshipped orders: ${response.statusCode} ${response.reasonPhrase}',
-      );
-    }
-
-    final json = jsonDecode(response.body) as Map<String, dynamic>;
     return ListUnshippedOrdersResponse.fromJson(json);
   }
 
@@ -51,19 +38,10 @@ class OrdersApi {
   Future<ListShipmentsResponse> listShipments({
     required ListShipmentsRequest request,
   }) async {
-    final uri = Uri.parse('$_baseUrl/api/orders/shipments').replace(
+    final json = await httpClient.get(
+      '/api/orders/shipments',
       queryParameters: request.toQueryParameters(),
     );
-
-    final response = await client.get(uri, headers: _headers);
-
-    if (response.statusCode != 200) {
-      throw StarShipItException(
-        'Failed to list shipments: ${response.statusCode} ${response.reasonPhrase}',
-      );
-    }
-
-    final json = jsonDecode(response.body) as Map<String, dynamic>;
     return ListShipmentsResponse.fromJson(json);
   }
 
@@ -76,19 +54,10 @@ class OrdersApi {
   Future<ListShippedOrdersResponse> listShipped({
     ListShippedOrdersRequest? request,
   }) async {
-    final uri = Uri.parse('$_baseUrl/api/orders/shipped').replace(
+    final json = await httpClient.get(
+      '/api/orders/shipped',
       queryParameters: request?.toQueryParameters(),
     );
-
-    final response = await client.get(uri, headers: _headers);
-
-    if (response.statusCode != 200) {
-      throw StarShipItException(
-        'Failed to list shipped orders: ${response.statusCode} ${response.reasonPhrase}',
-      );
-    }
-
-    final json = jsonDecode(response.body) as Map<String, dynamic>;
     return ListShippedOrdersResponse.fromJson(json);
   }
 
@@ -100,19 +69,10 @@ class OrdersApi {
   Future<ListDeliveredOrdersResponse> listDelivered({
     required ListDeliveredOrdersRequest request,
   }) async {
-    final uri = Uri.parse('$_baseUrl/api/orders/delivered').replace(
+    final json = await httpClient.get(
+      '/api/orders/delivered',
       queryParameters: request.toQueryParameters(),
     );
-
-    final response = await client.get(uri, headers: _headers);
-
-    if (response.statusCode != 200) {
-      throw StarShipItException(
-        'Failed to list delivered orders: ${response.statusCode} ${response.reasonPhrase}',
-      );
-    }
-
-    final json = jsonDecode(response.body) as Map<String, dynamic>;
     return ListDeliveredOrdersResponse.fromJson(json);
   }
 
@@ -123,36 +83,22 @@ class OrdersApi {
   Future<ListOrdersSummaryResponse> listSummary([
     ListOrdersSummaryRequest? request,
   ]) async {
-    final uri = Uri.parse('$_baseUrl/api/orders/summary').replace(
+    final json = await httpClient.get(
+      '/api/orders/summary',
       queryParameters: request?.toQueryParameters(),
     );
-
-    final response = await client.get(uri, headers: _headers);
-    if (response.statusCode != 200) {
-      throw StarShipItException(
-          'Failed to list order summaries: ${response.body}');
-    }
-
-    return ListOrdersSummaryResponse.fromJson(
-      jsonDecode(response.body) as Map<String, dynamic>,
-    );
+    return ListOrdersSummaryResponse.fromJson(json);
   }
 
   /// Search orders based on a phrase, with optional filtering and pagination
   ///
   /// Returns a [SearchOrdersResponse] containing matching orders and pagination info
   Future<SearchOrdersResponse> search([SearchOrdersRequest? request]) async {
-    final uri = Uri.parse('$_baseUrl/api/orders/search')
-        .replace(queryParameters: request?.toQueryParameters());
-
-    final response = await client.get(uri, headers: _headers);
-
-    if (response.statusCode != 200) {
-      throw StarShipItException('Failed to search orders: ${response.body}');
-    }
-
-    return SearchOrdersResponse.fromJson(
-        jsonDecode(response.body) as Map<String, dynamic>);
+    final json = await httpClient.get(
+      '/api/orders/search',
+      queryParameters: request?.toQueryParameters(),
+    );
+    return SearchOrdersResponse.fromJson(json);
   }
 
   /// Merges multiple unshipped orders into a single unshipped order
@@ -162,21 +108,10 @@ class OrdersApi {
   ///
   /// Throws a [StarShipItException] if the request fails.
   Future<MergeOrdersResponse> merge(MergeOrdersRequest request) async {
-    final uri = Uri.parse('$_baseUrl/api/orders/merge');
-
-    final response = await client.post(
-      uri,
-      headers: _headers,
-      body: jsonEncode(request.toJson()),
+    final json = await httpClient.post(
+      '/api/orders/merge',
+      body: request.toJson(),
     );
-
-    if (response.statusCode != 200) {
-      throw StarShipItException(
-        'Failed to merge orders: ${response.statusCode} ${response.reasonPhrase}',
-      );
-    }
-
-    final json = jsonDecode(response.body) as Map<String, dynamic>;
     return MergeOrdersResponse.fromJson(json);
   }
 
@@ -189,19 +124,10 @@ class OrdersApi {
   Future<GetMergeableOrdersResponse> getMergeable([
     GetMergeableOrdersRequest? request,
   ]) async {
-    final uri = Uri.parse('$_baseUrl/api/orders/mergeable').replace(
+    final json = await httpClient.get(
+      '/api/orders/mergeable',
       queryParameters: request?.toQueryParameters(),
     );
-
-    final response = await client.get(uri, headers: _headers);
-
-    if (response.statusCode != 200) {
-      throw StarShipItException(
-        'Failed to get mergeable orders: ${response.statusCode} ${response.reasonPhrase}',
-      );
-    }
-
-    final json = jsonDecode(response.body) as Map<String, dynamic>;
     return GetMergeableOrdersResponse.fromJson(json);
   }
 
@@ -212,21 +138,10 @@ class OrdersApi {
   ///
   /// Throws a [StarShipItException] if the request fails.
   Future<AssignOrdersResponse> assign(AssignOrdersRequest request) async {
-    final uri = Uri.parse('$_baseUrl/api/orders/assign');
-
-    final response = await client.post(
-      uri,
-      headers: _headers,
-      body: jsonEncode(request.toJson()),
+    final json = await httpClient.post(
+      '/api/orders/assign',
+      body: request.toJson(),
     );
-
-    if (response.statusCode != 200) {
-      throw StarShipItException(
-        'Failed to assign orders: ${response.statusCode} ${response.reasonPhrase}',
-      );
-    }
-
-    final json = jsonDecode(response.body) as Map<String, dynamic>;
     return AssignOrdersResponse.fromJson(json);
   }
 
@@ -237,21 +152,10 @@ class OrdersApi {
   ///
   /// Throws a [StarShipItException] if the request fails.
   Future<CreateOrdersResponse> create(CreateOrdersRequest request) async {
-    final uri = Uri.parse('$_baseUrl/api/orders');
-
-    final response = await client.post(
-      uri,
-      headers: _headers,
-      body: jsonEncode(request.toJson()),
+    final json = await httpClient.post(
+      '/api/orders',
+      body: request.toJson(),
     );
-
-    if (response.statusCode != 200) {
-      throw StarShipItException(
-        'Failed to create order: ${response.statusCode} ${response.reasonPhrase}',
-      );
-    }
-
-    final json = jsonDecode(response.body) as Map<String, dynamic>;
     return CreateOrdersResponse.fromJson(json);
   }
 }

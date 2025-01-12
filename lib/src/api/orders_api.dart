@@ -268,7 +268,7 @@ class OrdersApi {
   /// - Ocp-Apim-Subscription-Key: Subscription key in your Starshipit account under Settings > API > Subscription key
   ///
   /// Throws a [StarShipItException] if the request fails.
-  Future<GetMergeableOrdersResponse> getMergeable([
+  Future<GetMergeableOrdersResponse> getSuggestedMerges([
     GetMergeableOrdersRequest? request,
   ]) async {
     final json = await httpClient.get(
@@ -278,10 +278,25 @@ class OrdersApi {
     return GetMergeableOrdersResponse.fromJson(json);
   }
 
-  /// Assigns unshipped orders from one account to another
+  /// Assigns unshipped orders by order_id or order_number from one account to another
   ///
-  /// The [request] parameter specifies the orders to assign and their source/destination API keys.
-  /// Orders can be identified by either order_id or order_number.
+  /// Endpoint: POST https://api.starshipit.com/api/orders/assign
+  ///
+  /// Request:
+  /// - [orders]: List of order assignments (Assign Order Model), containing:
+  ///   - [order_id] (integer): The unique numeric identifier for the order
+  ///   - [order_number] (string): The identifier of the order pulled from source e-Commerce platform
+  ///   - [current_api_key]: The api key of the account that the order currently resides in
+  ///   - [new_api_key]: The api key of the account that you wish to assign the order to
+  ///
+  /// Response:
+  /// - [success]: Determines whether the request was successfully submitted
+  /// - [errors]: List of detailed errors (Error Model)
+  ///
+  /// Required Headers:
+  /// - Content-Type: application/json
+  /// - StarShipIT-Api-Key: Api key in your Starshipit account under Settings > API > API Key
+  /// - Ocp-Apim-Subscription-Key: Subscription key in your Starshipit account under Settings > API > Subscription key
   ///
   /// Throws a [StarShipItException] if the request fails.
   Future<AssignOrdersResponse> assign(AssignOrdersRequest request) async {

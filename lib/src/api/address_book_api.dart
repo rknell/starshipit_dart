@@ -5,7 +5,13 @@ import '../exceptions.dart';
 import '../models/models.dart';
 import 'starshipit_http_client.dart';
 
-/// Handles all address book-related API requests
+/// Handles all address book-related API requests.
+///
+/// The address book API allows you to manage contacts and their addresses.
+/// All endpoints require the following headers:
+/// - Content-Type: application/json
+/// - StarShipIT-Api-Key: API key from Settings > API > API Key
+/// - Ocp-Apim-Subscription-Key: Subscription key from Settings > API > Subscription key
 class AddressBookApi {
   /// Creates a new address book API instance
   AddressBookApi({
@@ -14,10 +20,13 @@ class AddressBookApi {
 
   final StarshipitHttpClient httpClient;
 
-  /// Gets a filtered list of addresses from the address book
+  /// Retrieve a list of contacts that is stored in your address book.
+  /// Results are sorted by specified column and returned one page at a time.
   ///
-  /// [request] Optional request parameters for filtering and pagination
-  /// Returns a [GetFilteredAddressesResponse] containing the matching addresses
+  /// Endpoint: GET /api/addressbook/filtered
+  ///
+  /// See [GetFilteredAddressesRequest] for available request parameters
+  /// and [GetFilteredAddressesResponse] for response details.
   Future<GetFilteredAddressesResponse> getFilteredAddresses([
     GetFilteredAddressesRequest? request,
   ]) async {
@@ -28,10 +37,12 @@ class AddressBookApi {
     return GetFilteredAddressesResponse.fromJson(json);
   }
 
-  /// Deletes addresses from the address book
+  /// Deletes addresses from the address book.
   ///
-  /// [request] The request containing the list of address IDs to delete
-  /// Returns a [DeleteAddressResponse] indicating success or failure
+  /// Endpoint: POST /api/addressbook/delete
+  ///
+  /// See [DeleteAddressRequest] for request parameters
+  /// and [DeleteAddressResponse] for response details.
   Future<DeleteAddressResponse> deleteAddresses(
       DeleteAddressRequest request) async {
     final json = await httpClient.post(
@@ -41,10 +52,12 @@ class AddressBookApi {
     return DeleteAddressResponse.fromJson(json);
   }
 
-  /// Updates address information for a saved contact
+  /// Updates address information for a saved contact.
   ///
-  /// [request] The request containing the address ID and updated details
-  /// Returns an [UpdateAddressResponse] containing the updated address information
+  /// Endpoint: POST /api/addressbook/update
+  ///
+  /// See [UpdateAddressRequest] for request parameters
+  /// and [UpdateAddressResponse] for response details.
   Future<UpdateAddressResponse> updateAddress(
       UpdateAddressRequest request) async {
     final json = await httpClient.post(
@@ -54,10 +67,12 @@ class AddressBookApi {
     return UpdateAddressResponse.fromJson(json);
   }
 
-  /// Saves address information for a new contact
+  /// Saves address information for a new contact.
   ///
-  /// [request] The request containing the new address details
-  /// Returns an [AddAddressResponse] containing the new address information and ID
+  /// Endpoint: POST /api/addressbook/
+  ///
+  /// See [AddAddressRequest] for request parameters
+  /// and [AddAddressResponse] for response details.
   Future<AddAddressResponse> addAddress(AddAddressRequest request) async {
     final json = await httpClient.post(
       '/api/addressbook/',

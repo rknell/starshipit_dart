@@ -17,6 +17,8 @@ class OrdersApi {
   ///
   /// Get a list of all unshipped orders (default: orders updated in the last 24 hours)
   ///
+  /// Endpoint: GET https://api.starshipit.com/api/orders/unshipped
+  ///
   /// Parameters:
   /// - [since_order_date] (optional): Show orders created after date in UTC (date-time in RFC3339 format)
   /// - [since_last_updated] (optional): Show orders recently updated after date in UTC (date-time in RFC3339 format)
@@ -49,7 +51,27 @@ class OrdersApi {
 
   /// Lists orders by shipment status (recently printed or unmanifested)
   ///
-  /// Use [request] to specify the status and customize other query parameters.
+  /// Get recently printed or unmanifested orders
+  ///
+  /// Endpoint: GET https://api.starshipit.com/api/orders/shipments?status=recently_printed
+  ///
+  /// Parameters:
+  /// - [since_created_date] (optional): Show shipments created after date in UTC (date-time in RFC3339 format)
+  /// - [status]: The status of the shipments to return (accepted values: recently_printed, unmanifested)
+  /// - [limit] (optional): Amount of results (default: 50) (maximum: 250)
+  /// - [page] (optional): Page to show (default: 1)
+  ///
+  /// Response:
+  /// - [orders]: List of orders (Shipments Order Model)
+  /// - [status]: Shipment status: recently_printed or unmanifested
+  /// - [total_pages]: Total number of pages available
+  /// - [success]: Determines whether the request was successfully submitted
+  /// - [errors]: List of detailed errors (Error Model)
+  ///
+  /// Required Headers:
+  /// - Content-Type: application/json
+  /// - StarShipIT-Api-Key: Api key in your Starshipit account under Settings > API > API Key
+  /// - Ocp-Apim-Subscription-Key: Subscription key in your Starshipit account under Settings > API > Subscription key
   ///
   /// Throws a [StarShipItException] if the request fails.
   Future<ListShipmentsResponse> listShipments({

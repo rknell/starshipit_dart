@@ -503,13 +503,35 @@ class OrdersApi {
     return BatchUpdateOrdersResponse.fromJson(json);
   }
 
-  /// Deletes an order
+  /// Deletes an unshipped order
   ///
-  /// [identifier] can be either an order ID or order number
+  /// Endpoint: DELETE https://api.starshipit.com/api/orders/delete
+  ///
+  /// Request:
+  /// - [order_id]: The unique numeric identifier for the order
+  ///
+  /// Response:
+  /// - [success]: Determines whether the request was successfully submitted
+  /// - [errors]: List of detailed errors (Error Model)
+  ///
+  /// Required Headers:
+  /// - Content-Type: application/json
+  /// - StarShipIT-Api-Key: Api key in your Starshipit account under Settings > API > API Key
+  /// - Ocp-Apim-Subscription-Key: Subscription key in your Starshipit account under Settings > API > Subscription key
   ///
   /// Throws a [StarShipItException] if the request fails.
   Future<DeleteOrderResponse> deleteOrder(String identifier) async {
-    final json = await httpClient.delete('/api/orders/$identifier');
+    final orderId = int.tryParse(identifier);
+    if (orderId == null) {
+      throw StarShipItException('Invalid order ID: $identifier');
+    }
+    final request = DeleteOrderRequest(
+      orderId: orderId,
+    );
+    final json = await httpClient.delete(
+      '/api/orders/delete',
+      queryParameters: request.toQueryParameters(),
+    );
     return DeleteOrderResponse.fromJson(json);
   }
 

@@ -4,13 +4,13 @@ part 'delete_order_request.g.dart';
 
 /// Request wrapper for the Delete Order endpoint
 /// ```
-/// Attribute   Type     Description
+/// Attribute   Type      Description
 /// order_id   integer   The unique numeric identifier for the order
 /// ```
 @JsonSerializable()
 class DeleteOrderRequest {
   /// Creates a new delete order request instance
-  DeleteOrderRequest({
+  const DeleteOrderRequest({
     required this.orderId,
   });
 

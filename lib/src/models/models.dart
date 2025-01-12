@@ -95,6 +95,7 @@ export 'update_orders_bulk_request.dart';
 export 'update_orders_bulk_response.dart';
 export 'batch_update_orders_request.dart';
 export 'batch_update_orders_response.dart';
+export 'delete_order_request.dart';
 export 'delete_order_response.dart';
 export 'archive_order_response.dart';
 export 'restore_order_response.dart';

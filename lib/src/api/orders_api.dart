@@ -188,7 +188,31 @@ class OrdersApi {
 
   /// Search orders based on a phrase, with optional filtering and pagination
   ///
-  /// Returns a [SearchOrdersResponse] containing matching orders and pagination info
+  /// Search printed order by order number, tracking number or name of the order
+  ///
+  /// Endpoint: GET https://api.starshipit.com/api/orders/search
+  ///
+  /// Parameters:
+  /// - [phrase] (optional): In conjunction with the 'fields' parameter, this is the search phrase to search for
+  /// - [limit] (optional): Amount of results (default: 50) (maximum: 250) (accepted values: 1, 2, 3, ..., 250)
+  /// - [page] (optional): Page to show (default: 1) (accepted values: 1, 2, 3, ...)
+  /// - [status] (optional): Returns a list of orders based on the order status (default: All) (accepted values: All, Unshipped, Shipped)
+  /// - [fields] (optional): In conjunction with the phrase parameter, which field to search. If "All", it will search 'order number',
+  ///   'tracking number', 'theirRef' and 'name' (accepted values: All, Order_Number, TheirRef)
+  /// - [include_child_accounts]: If set to true, orders from child accounts will be returned (default: false) (accepted values: true, false)
+  ///
+  /// Response:
+  /// - [orders]: List of order assignments (Search Order Model)
+  /// - [total_pages]: Total number of pages available
+  /// - [success]: Determines whether the request was successfully submitted
+  /// - [errors]: List of detailed errors (Error Model)
+  ///
+  /// Required Headers:
+  /// - Content-Type: application/json
+  /// - StarShipIT-Api-Key: Api key in your Starshipit account under Settings > API > API Key
+  /// - Ocp-Apim-Subscription-Key: Subscription key in your Starshipit account under Settings > API > Subscription key
+  ///
+  /// Throws a [StarShipItException] if the request fails.
   Future<SearchOrdersResponse> search([SearchOrdersRequest? request]) async {
     final json = await httpClient.get(
       '/api/orders/search',
